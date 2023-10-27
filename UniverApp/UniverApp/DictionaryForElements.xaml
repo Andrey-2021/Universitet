@@ -28,11 +28,13 @@
         
     </Style>
     
+    
     <Style TargetType="Label" BasedOn="{StaticResource BaseForButtonsAndLabels}">
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
         <Setter Property="HorizontalAlignment" Value="Center"></Setter>
         <Setter Property="HorizontalContentAlignment" Value="Right"></Setter>
     </Style>
+    
 
     <Style TargetType="TextBox" BasedOn="{StaticResource BaseForButtonsAndLabels}">
         <Setter Property="VerticalAlignment" Value="Center"></Setter>

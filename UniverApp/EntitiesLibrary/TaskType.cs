@@ -23,7 +23,7 @@ public class TaskType : BaseINotifyDataErrorInfo, IHaveId
 			Validate(value);
 		}
 	}
-	public string? name;
+	private string? name;
 
 	/// <summary>
 	/// Описание
@@ -39,7 +39,7 @@ public class TaskType : BaseINotifyDataErrorInfo, IHaveId
 			Validate(value);
 		}
 	}
-	public string? description;
+	private string? description;
 
 	/// <summary>
 	/// Оценки студентов

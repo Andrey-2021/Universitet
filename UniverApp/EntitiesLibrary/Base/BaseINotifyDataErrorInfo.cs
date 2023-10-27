@@ -20,7 +20,7 @@ public class BaseINotifyDataErrorInfo: BaseNotifyPropertyChanged, INotifyDataErr
 	}
 
 
-	protected void Validate(object val, [CallerMemberName] string propertyName = null)
+	protected void Validate(object? val, [CallerMemberName] string propertyName = null)
 	{
 		if (_errors.ContainsKey(propertyName)) _errors.Remove(propertyName);
 

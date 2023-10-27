@@ -19,17 +19,10 @@
             <RowDefinition Height="20*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Label x:Name="labelTitle"
-            Grid.Column="0" Grid.Row="0"
-            Margin="10"
-            Grid.ColumnSpan="2"
-            HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Bottom">Введите данные о типе задачи (проверки):</Label>
+        <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+            Введите данные о типе задачи (проверки):</Label>
 
-        <Label Grid.Column="0" Grid.Row="1" 
-            Margin="10"
-            HorizontalContentAlignment="Right"
-            VerticalContentAlignment="Center">Название:</Label>
+        <Label Grid.Column="0" Grid.Row="1">Название:</Label>
 
         <!--<TextBox x:Name="textBoxName" 
                  Margin="20,10,20,10"
@@ -43,10 +36,16 @@
         </TextBox>-->
 
 
-
         <TextBox Grid.Column="1" Grid.Row="1"  Margin="20,10,20,10" Padding="10"
                  HorizontalAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center"
-                 Text="{Binding Path=MainEntity.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" >
+                 Text="{Binding Path=MainEntity.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" 
+                 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
+
+        <!--<TextBox Grid.Column="1" Grid.Row="1"  Margin="20,10,20,10" Padding="10"
+                 HorizontalAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center"
+                 Text="{Binding Path=MainEntity.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" 
+                 
+                 >
             <Validation.ErrorTemplate>
                 <ControlTemplate>
                     <StackPanel>
@@ -55,18 +54,12 @@
                     </StackPanel>
                 </ControlTemplate>
             </Validation.ErrorTemplate>
-        </TextBox>
+        </TextBox>-->
 
-
-
-
-
-
-
-        <Label Grid.Column="0" Grid.Row="2" 
-            Margin="10"
-            HorizontalContentAlignment="Right"
-            VerticalContentAlignment="Center">Описание:</Label>
+        <Label Grid.Column="0" Grid.Row="2" Margin="10"
+            HorizontalContentAlignment="Right" VerticalContentAlignment="Center">
+            Описание:
+        </Label>
 
         <!--<TextBox x:Name="textBoxDescription" 
                 Margin="20,20,20,20" Padding="5"

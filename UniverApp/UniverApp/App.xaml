@@ -6,6 +6,13 @@
              >
     <!--StartupUri="MainWindow.xaml"-->
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+                <ResourceDictionary Source="pack://application:,,,/ValidateDictionary.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/DictionaryForElements.xaml"/>
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
