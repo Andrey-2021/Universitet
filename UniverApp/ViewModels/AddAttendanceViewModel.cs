@@ -98,7 +98,7 @@ public class AddAttendanceViewModel : BaseAddEntityViewModel<Attendance>
 
 		if (result != null) //если ошибка
 		{
-			Message = "Ошибка";
+			//Message = "Ошибка";
 			return;
 		}
 		CloseWindow(parametr);//всё хорошо, закрываем  окно

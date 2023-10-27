@@ -1,4 +1,6 @@
-﻿namespace ViewModels.Base;
+﻿using System.Data;
+
+namespace ViewModels.Base;
 
 /// <summary>
 /// Базовый класс для всех AddViewModel
@@ -16,8 +18,6 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 	/// </summary>
 	public TEntity? MainEntity { get=> mainEntity; set { mainEntity = value; OnPropertyChanged(); } }
 	private TEntity? mainEntity;
-
-	public string? Message { get; set; }
 
 	/// <summary>
 	/// Команда "Сохранить"
@@ -86,7 +86,9 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 		
 		if (result!=null) //если ошибка
 		{
-			Message = "Ошибка";
+			var view = serviceProvider.GetRequiredService<IMessageWindowView>();
+			view.ViewModel.Parametr = "Ошибка при выполнении операции сохранения данных. Попробуйте выполнить операцию позже или обратитесь к администратору";
+			view.ShowDialog();
 			return;
 		}
 		CloseWindow(parametr);//всё хорошо, закрываем  окно

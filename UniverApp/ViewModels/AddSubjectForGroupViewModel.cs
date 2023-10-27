@@ -66,7 +66,7 @@ public class AddSubjectForGroupViewModel : BaseAddEntityViewModel<UniversitetGro
 
 		if (result != null) //если ошибка
 		{
-			Message = "Ошибка";
+			//Message = "Ошибка";
 			return;
 		}
 

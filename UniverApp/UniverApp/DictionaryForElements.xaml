@@ -3,8 +3,8 @@
 
     <Style x:Key="BaseForButtonsAndLabels">
         
-        <Setter Property="Control.Margin" Value="5"></Setter>
-        <Setter Property="Control.Padding" Value="5"></Setter>
+        <Setter Property="Control.Margin" Value="10 5 10 5"></Setter>
+        <Setter Property="Control.Padding" Value="10"></Setter>
         <Setter Property="Control.MinWidth" Value="120"></Setter>
     </Style>
 
@@ -38,6 +38,8 @@
 
     <Style TargetType="TextBox" BasedOn="{StaticResource BaseForButtonsAndLabels}">
         <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
     </Style>
 
 

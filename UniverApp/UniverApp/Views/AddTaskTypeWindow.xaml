@@ -23,68 +23,15 @@
             Введите данные о типе задачи (проверки):</Label>
 
         <Label Grid.Column="0" Grid.Row="1">Название:</Label>
-
-        <!--<TextBox x:Name="textBoxName" 
-                 Margin="20,10,20,10"
-                Grid.Column="1" Grid.Row="1" 
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Center"
-                VerticalContentAlignment="Center"
-                MinHeight="30"
-                MinWidth="320"
-                 Text="{Binding Path=MainEntity.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-        </TextBox>-->
-
-
-        <TextBox Grid.Column="1" Grid.Row="1"  Margin="20,10,20,10" Padding="10"
-                 HorizontalAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center"
+        <TextBox Grid.Column="1" Grid.Row="1"
                  Text="{Binding Path=MainEntity.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" 
                  Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <!--<TextBox Grid.Column="1" Grid.Row="1"  Margin="20,10,20,10" Padding="10"
-                 HorizontalAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center"
-                 Text="{Binding Path=MainEntity.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" 
-                 
-                 >
-            <Validation.ErrorTemplate>
-                <ControlTemplate>
-                    <StackPanel>
-                        <AdornedElementPlaceholder x:Name="textBox"/>
-                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
-                    </StackPanel>
-                </ControlTemplate>
-            </Validation.ErrorTemplate>
-        </TextBox>-->
+        <Label Grid.Column="0" Grid.Row="2">Описание:</Label>
 
-        <Label Grid.Column="0" Grid.Row="2" Margin="10"
-            HorizontalContentAlignment="Right" VerticalContentAlignment="Center">
-            Описание:
-        </Label>
-
-        <!--<TextBox x:Name="textBoxDescription" 
-                Margin="20,20,20,20" Padding="5"
-                Grid.Column="1" Grid.Row="2" 
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                MinHeight="30"
-                MinWidth="320"
-                AcceptsReturn="True"
-                Text="{Binding Path=MainEntity.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-        </TextBox>-->
-
-        <TextBox Grid.Column="1" Grid.Row="2"  Margin="20,10,20,10" Padding="10" MinHeight="30" MinWidth="320"
-         HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap"
-         Text="{Binding Path=MainEntity.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" >
-            <Validation.ErrorTemplate>
-                <ControlTemplate>
-                    <StackPanel>
-                        <AdornedElementPlaceholder x:Name="textBox"/>
-                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
-                    </StackPanel>
-                </ControlTemplate>
-            </Validation.ErrorTemplate>
-        </TextBox>
-        
+        <TextBox Grid.Column="1" Grid.Row="2" MinHeight="150" MinWidth="320" TextWrapping="Wrap"
+         Text="{Binding Path=MainEntity.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" 
+                 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
         <Button Grid.Column="1" Grid.Row="3"
                 Margin="10,10,10,10" Padding="10"
@@ -96,7 +43,6 @@
             Сохранить
         </Button>
 
-        <!--IsCancel="True"-->
         <Button Grid.Column="1" Grid.Row="3" 
                 Margin="0,0,280,0" Padding="10"
                 MinWidth="120"

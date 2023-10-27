@@ -24,6 +24,7 @@ public partial class App : Application
 		DbConteinerConfiguration.AddToServiceCollection(services);
 		services.AddTransient<DbRepository>();
 
+		services.AddTransient<IMessageWindowView, MessageWindow>();
 		services.AddTransient<IAboutProgrammView, AboutProgrammWindow>();
 		services.AddTransient<IHelpView, HelpWindow>();
 		services.AddTransient<IMainWindowView, MainWindow>();
@@ -50,10 +51,7 @@ public partial class App : Application
 
 
 
-
-
-
-
+		services.AddTransient<MessageViewModel>();
 		services.AddTransient<AboutProgrammViewModel>();
 		services.AddTransient<HelpViewModel>();
 		services.AddTransient<MainWindowViewModel>();
