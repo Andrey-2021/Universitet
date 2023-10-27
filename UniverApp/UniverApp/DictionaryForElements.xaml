@@ -1,0 +1,51 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="BaseForButtonsAndLabels">
+        
+        <Setter Property="Control.Margin" Value="5"></Setter>
+        <Setter Property="Control.Padding" Value="5"></Setter>
+        <Setter Property="Control.MinWidth" Value="120"></Setter>
+    </Style>
+
+
+
+    <Style TargetType="Button" BasedOn="{StaticResource BaseForButtonsAndLabels}">
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+    </Style>
+
+    <Style TargetType="DatePicker" >
+        <Style.Resources>
+            <!-- Reset the Button style inside the DatePicker to default values -->
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="MinWidth" Value="0" />
+            </Style>
+        </Style.Resources>
+        <Setter Property="Control.Margin" Value="10"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+        
+    </Style>
+    
+    <Style TargetType="Label" BasedOn="{StaticResource BaseForButtonsAndLabels}">
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Right"></Setter>
+    </Style>
+
+    <Style TargetType="TextBox" BasedOn="{StaticResource BaseForButtonsAndLabels}">
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+    </Style>
+
+
+    <Style TargetType="DataGrid" BasedOn="{StaticResource BaseForButtonsAndLabels}">
+        <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+    </Style>
+
+    <Style TargetType="CheckBox" BasedOn="{StaticResource BaseForButtonsAndLabels}">
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+    </Style>
+
+    
+</ResourceDictionary>

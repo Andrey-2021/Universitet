@@ -1,0 +1,55 @@
+﻿<Window x:Class="UniverApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UniverApp"
+        mc:Ignorable="d"
+        Title="Университет" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+    
+    <Window.Resources>
+        <ResourceDictionary Source="pack://application:,,,/DictionaryForElements.xaml"></ResourceDictionary>
+    </Window.Resources>
+    
+    <DockPanel LastChildFill="True">
+        <Menu x:Name="myMenu" DockPanel.Dock="Top" Background="Beige" Padding="5">
+            <MenuItem Header="Администратор">
+                <MenuItem Header="Создать новую БД" Command="{Binding CreateDbCommand}"></MenuItem>
+                <MenuItem Header="Пользователи" Command="{Binding ShowAllUsersCommand}"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="О программе" Command="{Binding ShowAboutProgrammCommand}"></MenuItem>
+            <MenuItem Header="Помощь" Command="{Binding ShowHelpCommand}"></MenuItem>
+
+        </Menu>
+
+        <StatusBar DockPanel.Dock="Bottom" Background="Azure" Padding="5">
+            <StatusBarItem>
+                <TextBlock>Размер поля:</TextBlock>
+            </StatusBarItem>
+            <!--<StatusBarItem>
+            <TextBox Width="100" Text="{Binding GameBordSize, Mode=OneWay}" IsReadOnly="True"
+             Style="{DynamicResource TextBoxStyle}"></TextBox>
+        </StatusBarItem>-->
+        </StatusBar>
+
+        <StackPanel DockPanel.Dock="Left" Background="Bisque" Width="180">
+            <Button Command="{Binding ShowAllGroupsCommand}">Группы</Button>
+            <Button Command="{Binding ShowAllSubjectsCommand}">Предметы</Button>
+            <Button Command="{Binding ShowAllTaskTypesCommand}">Типы опросов</Button>
+            <Button Command="{Binding ShowAllStudentsCommand}">Студенты</Button>
+
+            <Button Command="{Binding ShowAllLearninsgDatesCommand}">Дата учёбы</Button>
+            <Button Command="{Binding ShowAllAttendancesCommand}">Посещаемость</Button>
+            <Button Command="{Binding ShowAllSubjectScoreCommand}">Оценки</Button>
+            
+        </StackPanel>
+
+        <StackPanel DockPanel.Dock="Right" Background="LightBlue" Width="150">
+            <Label>Время:</Label>
+        </StackPanel>
+
+        <UniformGrid x:Name="UniformGridGameBord" Margin="5" Background="LightSteelBlue" ></UniformGrid>
+
+    </DockPanel>
+</Window>

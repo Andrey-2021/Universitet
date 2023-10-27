@@ -1,0 +1,150 @@
+﻿<Window x:Class="UniverApp.Views.AddAttendanceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UniverApp.Views"
+        mc:Ignorable="d"
+        Title="Посещаемость сдентов" Height="750" Width="850"
+        WindowStartupLocation="CenterScreen">
+    
+    <Window.Resources>
+        <ResourceDictionary Source="pack://application:,,,/DictionaryForElements.xaml"></ResourceDictionary>
+    </Window.Resources>
+    
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*"></ColumnDefinition>
+            <ColumnDefinition Width="50*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="40*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="60*"></RowDefinition>
+            <RowDefinition Height="20*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label x:Name="labelTitle"
+       Grid.Column="0" Grid.Row="0"
+       Margin="10"
+       Grid.ColumnSpan="2"
+       HorizontalContentAlignment="Center"
+       VerticalContentAlignment="Bottom">
+            Ввод данных о посещаемости студентов выбранной группы на определённый выбранный день
+        </Label>
+
+       
+        <!--<Label Grid.Column="0" Grid.Row="1" 
+       Margin="10"
+       HorizontalContentAlignment="Right"
+       VerticalContentAlignment="Center">
+            Был в этот день:
+        </Label>
+
+        <CheckBox Grid.Row="1" Grid.Column="1"
+          IsChecked="{Binding Path=MainEntity.IsWasToday, Mode=TwoWay}">
+            да/нет
+        </CheckBox>-->
+
+
+        <Label Grid.Row="1" Grid.Column="0"
+               HorizontalContentAlignment="Center"
+               VerticalContentAlignment="Bottom">Выберите группу:</Label>
+
+        <Label Grid.Row="1" Grid.Column="1"
+               HorizontalContentAlignment="Center"
+               VerticalContentAlignment="Bottom">Выберите дату:</Label>
+
+
+        <DataGrid MinHeight="50"
+          Grid.Column="0" Grid.Row="2"
+          IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
+          SelectionMode="Single"
+          VerticalScrollBarVisibility="Auto"
+          AutoGenerateColumns="False"
+          CanUserReorderColumns="False"
+          Margin="10"
+          ItemsSource="{Binding UniversitetGroups, Mode=TwoWay}"
+          SelectedItem="{Binding SelectedGroup, Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Название группы" Width="5*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Description}" Header="Описание" Width="5*"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+        <DataGrid MinHeight="50"
+          Grid.Column="1" Grid.Row="2"
+          IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
+          SelectionMode="Single"
+          VerticalScrollBarVisibility="Auto"
+          AutoGenerateColumns="False"
+          CanUserReorderColumns="False"
+          Margin="10"
+          ItemsSource="{Binding LearningDates, Mode=TwoWay}"
+          SelectedItem="{Binding SelectedLearningDate, Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Date, StringFormat=\{0:dd.MM.yyyy\}}" Header="Учётный день" Width="70*"></DataGridTextColumn>
+                <DataGridCheckBoxColumn Binding="{Binding IsLearning}" Header="Учились да/нет" Width="30*"></DataGridCheckBoxColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+            <Label FontSize="14" Foreground="Red" HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Bottom">Отметьте присутствующих студентов из выбранной группы :</Label>
+
+            <Label FontSize="14" Foreground="Red" HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Bottom" Content="{Binding Path=SelectedGroup.Name}"></Label>
+            
+            <Label FontSize="14" Foreground="Red" HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Bottom"> в выбранный день:</Label>
+
+            <Label FontSize="14" Foreground="Red" HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Bottom" Content="{Binding Path=SelectedLearningDate.Date, StringFormat=\{0:dd.MM.yyyy\}}"></Label>
+        </StackPanel>
+        
+
+        
+        <DataGrid MinHeight="80" Grid.ColumnSpan="2"
+          Grid.Column="0" Grid.Row="4"
+          CanUserAddRows="False" CanUserDeleteRows="False"
+          SelectionMode="Single"
+          VerticalScrollBarVisibility="Auto"
+          AutoGenerateColumns="False"
+          CanUserReorderColumns="False"
+          Margin="10"
+          ItemsSource="{Binding Attendances, Mode=TwoWay}">
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Binding="{Binding Path=Student.FIO, Mode=OneWay}" Header="Студент" Width="5*"></DataGridTextColumn>
+                <DataGridCheckBoxColumn IsReadOnly="False" Binding="{Binding IsWasToday}" Header="Присутствовал да/нет" Width="3*"></DataGridCheckBoxColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+
+        <Button Grid.Column="0" Grid.Row="5"
+        Padding="10"
+        MinWidth="120"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Command="{Binding SaveCommand}"
+        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+            Сохранить
+        </Button>
+
+        <Button Grid.Column="1" Grid.Row="5" 
+        Padding="10"
+        MinWidth="120"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Command="{Binding CloseWindowCommand}"
+        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+            Отмена
+        </Button>
+        
+    </Grid>
+</Window>

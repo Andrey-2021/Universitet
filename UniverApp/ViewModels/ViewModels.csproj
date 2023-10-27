@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DbLibrary\DbLibrary.csproj" />
+    <ProjectReference Include="..\EntitiesLibrary\EntitiesLibrary.csproj" />
+    <ProjectReference Include="..\HelpAndAboutProgrammLibrary\HelpAndAboutProgrammLibrary.csproj" />
+    <ProjectReference Include="..\WindowsInterfaces\WindowsInterfaces.csproj" />
+  </ItemGroup>
+
+</Project>
