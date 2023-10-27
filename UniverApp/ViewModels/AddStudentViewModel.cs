@@ -1,6 +1,6 @@
 ﻿namespace ViewModels;
 
-public class AddStudentViewModel : BaseAddEntityViewModel<Student> //, INotifyPropertyChanged
+public class AddStudentViewModel : BaseAddEntityViewModel<Student>
 {
 	/// <summary>
 	/// Список Групп из БД
@@ -15,7 +15,6 @@ public class AddStudentViewModel : BaseAddEntityViewModel<Student> //, INotifyPr
 		}
 	}
 	public ObservableCollection<UniversitetGroup>? entities;
-
 
 	/// <summary>
 	/// Конструктор
@@ -37,15 +36,7 @@ public class AddStudentViewModel : BaseAddEntityViewModel<Student> //, INotifyPr
 		if (response == null)
 			Entities = null;
 		else
-			Entities = new ObservableCollection<UniversitetGroup>(response);
+			Entities = new ObservableCollection<UniversitetGroup>(response.OrderBy(x=>x.Name));
 		IsBusy = false;
 	}
-
-
-	//public event PropertyChangedEventHandler? PropertyChanged;
-	//public void OnPropertyChanged([CallerMemberName] string prop = "")
-	//{
-	//	if (PropertyChanged != null)
-	//		PropertyChanged(this, new PropertyChangedEventArgs(prop));
-	//}
 }

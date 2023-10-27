@@ -7,24 +7,19 @@
         mc:Ignorable="d"
         Title="Студент" Height="550" Width="800"
         WindowStartupLocation="CenterScreen">
-    
-    <Window.Resources>
-        <ResourceDictionary Source="pack://application:,,,/DictionaryForElements.xaml"></ResourceDictionary>
-    </Window.Resources>
-    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30*"></ColumnDefinition>
             <ColumnDefinition Width="70*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="15*"></RowDefinition>
-            <RowDefinition Height="20*"></RowDefinition>
-            <RowDefinition Height="20*"></RowDefinition>
-            <RowDefinition Height="20*"></RowDefinition>
-            <RowDefinition Height="20*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="20*" MaxHeight="60"></RowDefinition>
+            <RowDefinition Height="20*" MaxHeight="60"></RowDefinition>
+            <RowDefinition Height="20*" MaxHeight="60"></RowDefinition>
+            <RowDefinition Height="20*" MaxHeight="60"></RowDefinition>
             <RowDefinition Height="60*"></RowDefinition>
-            <RowDefinition Height="20*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Label x:Name="labelTitle"
@@ -36,77 +31,32 @@
             Введите данные о студенте:
         </Label>
 
-        <Label Grid.Column="0" Grid.Row="1" 
-               Margin="10"
-               HorizontalContentAlignment="Right"
-               VerticalContentAlignment="Center">
-            Фамилия:
-        </Label>
-
-        <TextBox Margin="20,10,20,10"
-                 Grid.Column="1" Grid.Row="1" 
-                 HorizontalAlignment="Stretch"
-                 VerticalAlignment="Center"
-                 MinHeight="30"
-                 MinWidth="320"
-                 Text="{Binding Path=MainEntity.Surname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-        </TextBox>
-
-
-        <Label Grid.Column="0" Grid.Row="2"
-               Margin="10"
-               HorizontalContentAlignment="Right"
-               VerticalContentAlignment="Center">
-            Имя:
-        </Label>
-
-        <TextBox Margin="20,10,20,10"
-                 Grid.Column="1" Grid.Row="2" 
-                 HorizontalAlignment="Stretch"
-                 VerticalAlignment="Center"
-                 MinHeight="30"
-                 MinWidth="320"
-                 Text="{Binding Path=MainEntity.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-        </TextBox>
-
-        <Label Grid.Column="0" Grid.Row="3"
-               Margin="10"
-               HorizontalContentAlignment="Right"
-               VerticalContentAlignment="Center">
-            Отчество:
-        </Label>
+        <Label Grid.Column="0" Grid.Row="1">Фамилия:</Label>
+        <TextBox Grid.Column="1" Grid.Row="1"
+                 Text="{Binding Path=MainEntity.Surname, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
         
-        <TextBox Margin="20,10,20,10"
-                 Grid.Column="1" Grid.Row="3" 
-                 HorizontalAlignment="Stretch"
-                 VerticalAlignment="Center"
-                 MinHeight="30"
-                 MinWidth="320"
-                 Text="{Binding Path=MainEntity.MiddleName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-        </TextBox>
+        <Label Grid.Column="0" Grid.Row="2">Имя:</Label>
+        <TextBox Grid.Column="1" Grid.Row="2"
+                 Text="{Binding Path=MainEntity.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
-        <Label Grid.Column="0" Grid.Row="4"
-                Margin="10"
-                HorizontalContentAlignment="Right"
-                VerticalContentAlignment="Center">
-            Дата рождения:
-        </Label>
+        <Label Grid.Column="0" Grid.Row="3">Отчество:</Label>
+        <TextBox Grid.Column="1" Grid.Row="3"
+                 Text="{Binding Path=MainEntity.MiddleName, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
+                 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
+        <Label Grid.Column="0" Grid.Row="4">Дата рождения:</Label>
         <DatePicker Grid.Row="4" Grid.Column="1" 
-                    MaxWidth="400"
+                    MaxWidth="400" MinWidth="200"
                     HorizontalAlignment="Left"
                     Margin="20,10,20,10"
+                    Padding="10"
                     VerticalAlignment="Center"
                     SelectedDate="{Binding Path=MainEntity.Birthday, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Column="0" Grid.Row="5"
-                Margin="10"
-                HorizontalContentAlignment="Right"
-                VerticalContentAlignment="Center">
-            Группа:
-        </Label>
-
-
+        
+        <Label Grid.Column="0" Grid.Row="5">Группа:</Label>
         <!--SelectedItem="{Binding Path=MainEntity.UniversitetGroup, Mode=TwoWay}"-->
         <DataGrid MinHeight="50"
           Grid.Column="1" Grid.Row="5"
@@ -118,9 +68,7 @@
           Margin="10"
           ItemsSource="{Binding Entities, Mode=TwoWay}"
                   SelectedValuePath="Id"
-                  SelectedValue="{Binding Path=MainEntity.UniversitetGroupId}"
-                  
-                  >
+                  SelectedValue="{Binding Path=MainEntity.UniversitetGroupId}">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="MediumAquamarine"/>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="MediumAquamarine"/>
@@ -130,15 +78,6 @@
                 <DataGridTextColumn Binding="{Binding Description}" Header="Описание" Width="5*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-
-        <!--<ComboBox Grid.Column="1" Grid.Row="5"
-                  Height="25"
-                  ItemsSource="{Binding Entities, Mode=TwoWay}"
-                  SelectedItem="{Binding Path=MainEntity.UniversitetGroup, Mode=TwoWay}"></ComboBox>-->
-
-
-        
-        
 
         <Button Grid.Column="1" Grid.Row="6"
                 Margin="10,10,10,10" Padding="10"

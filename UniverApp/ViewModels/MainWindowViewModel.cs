@@ -7,7 +7,6 @@ public class MainWindowViewModel
 	/// </summary>
 	public ICommand? ShowAllSubjectScoreCommand { get; private set; }
 
-
 	/// <summary>
 	/// Команда "показать всех Дата учёбы"
 	/// </summary>
@@ -58,8 +57,6 @@ public class MainWindowViewModel
 	/// </summary>
 	public ICommand? ShowAllUsersCommand { get; private set; }
 
-
-
 	private IServiceProvider container;
 
 	public MainWindowViewModel(IServiceProvider serviceProvider)
@@ -103,7 +100,25 @@ public class MainWindowViewModel
 	private async void CreateNewDb(object? parametr)
 	{
 		var repository = container.GetRequiredService<DbRepository>();
-		await repository.CreateNewDbAsync();
+		//var canConnect= await repository.CanConnectAsync();
+		
+		//if (canConnect!=null)
+		//{ //БД недоступна
+
+		//	var messageView = container.GetRequiredService<IMessageWindowView>();
+		//	messageView.ViewModel.Parametr = "Ошибка БД недоступна!. Попробуйте выполнить операцию позже или обратитесь к администратору";
+		//	messageView.ShowDialog();
+		//	return;
+		//}
+
+		var result= await repository.CreateNewDbAsync();
+
+		var view = container.GetRequiredService<IMessageWindowView>();
+		if (result.operationResult == false) //если ошибка
+			view.ViewModel.Parametr = "Ошибка при создании новой БД. Попробуйте выполнить операцию позже или обратитесь к администратору";
+		else
+			view.ViewModel.Parametr = "БД создана";
+		view.ShowDialog();
 	}
 
 	private void ShowAllUsers(object? parametr)

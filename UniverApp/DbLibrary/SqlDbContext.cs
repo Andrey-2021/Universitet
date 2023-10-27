@@ -32,6 +32,16 @@ public class SqlDbContext : DbContext
 		await Database.EnsureCreatedAsync();
 	}
 
+	/// <summary>
+	/// Определяет, доступна ли база данных и к ней можно подключиться.
+	/// </summary>
+	/// <returns></returns>
+	public async Task<bool> CheckCanConnectAsync()
+	{
+		return await Database.CanConnectAsync();
+	}
+
+
 	public DbSet<Student> Students { get; set; } = null!;
 	public DbSet<Subject>Subjects  { get; set; } = null!;
 	public DbSet<SubjectScore> SubjectScores{ get; set; } = null!;

@@ -7,21 +7,15 @@
         mc:Ignorable="d"
         Title="Студенты" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
-    
-    <Window.Resources>
-        <ResourceDictionary Source="pack://application:,,,/DictionaryForElements.xaml"></ResourceDictionary>
-    </Window.Resources>
-    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="70*"></ColumnDefinition>
-            <ColumnDefinition Width="30*"></ColumnDefinition>
+            <ColumnDefinition Width="30*" MaxWidth="200"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="20"></RowDefinition>
-            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Label Grid.Column="0" Grid.Row="0" 

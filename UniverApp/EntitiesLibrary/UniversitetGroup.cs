@@ -1,36 +1,50 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-namespace EntitiesLibrary;
+﻿namespace EntitiesLibrary;
 
 /// <summary>
 /// Учебная группа
 /// </summary>
-public class UniversitetGroup : INotifyPropertyChanged, IHaveId
+public class UniversitetGroup : BaseINotifyDataErrorInfo, IHaveId
 {
-	public int Id { get=> id; set { id = value; OnPropertyChanged(); } }
+	public int Id { get => id; set { id = value; OnPropertyChanged(); } }
 	public int id;
 
 	/// <summary>
 	/// Название группы
 	/// </summary>
-	public string? Name { get=> name; set { name = value; OnPropertyChanged(); } }
-	public string? name;
+	[Required(ErrorMessage = "Обязательно должна быть введено название")]
+	[StringLength(150, MinimumLength = 5, ErrorMessage = "Длина названия должна быть не менее {2} и не более {1} символов")]
+	[Comment("Название группы")]
+	public string? Name
+	{
+		get => name;
+		set
+		{
+			name = value;
+			OnPropertyChanged();
+			Validate(value);
+		}
+	}
+	private string? name;
 
 	/// <summary>
 	/// Описание
 	/// </summary>
-	public string? Description { get=> description; set { description = value; OnPropertyChanged(); } }
-	public string? description;
-
-	public List<Subject>? Subjects { get=> subjects; set { subjects = value; OnPropertyChanged(); } }
-	public List<Subject>? subjects;
-
-	//Реализация INotifyPropertyChanged
-	public event PropertyChangedEventHandler? PropertyChanged;
-	public void OnPropertyChanged([CallerMemberName] string prop = "")
+	[MaxLength(500, ErrorMessage = "Длина описания не должна превышать {1} символов")]
+	public string? Description
 	{
-		if (PropertyChanged != null)
-			PropertyChanged(this, new PropertyChangedEventArgs(prop));
+		get => description;
+		set
+		{
+			description = value;
+			OnPropertyChanged();
+			Validate(value);
+		}
 	}
+	private string? description;
 
+	/// <summary>
+	/// Предметы изучаемые в Группе
+	/// </summary>
+	public List<Subject>? Subjects { get => subjects; set { subjects = value; OnPropertyChanged(); } }
+	public List<Subject>? subjects;
 }

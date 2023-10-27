@@ -15,8 +15,21 @@ public partial class App : Application
 
 	private void OnStartup(object sender, StartupEventArgs e)
 	{
+		//Disable shutdown when the dialog closes
+		Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+		var checkPasswordWindow = serviceProvider.GetRequiredService<ICheckLoginView>();
+		checkPasswordWindow.ShowDialog();
+		var vm = checkPasswordWindow.ViewModel as CheckLoginViewModel;
+		if (vm == null || !vm.IsCkeckOn)
+		{
+			Current.Shutdown(-1);
+			return;
+		}
+
 		var mainWindow = serviceProvider.GetRequiredService<IMainWindowView>();
 		mainWindow.ShowDialog();
+		Current.Shutdown(0);
 	}
 
 	private void ConfigureServices(ServiceCollection services)
@@ -24,6 +37,7 @@ public partial class App : Application
 		DbConteinerConfiguration.AddToServiceCollection(services);
 		services.AddTransient<DbRepository>();
 
+		services.AddTransient<ICheckLoginView, CheckLoginWindow>();
 		services.AddTransient<IMessageWindowView, MessageWindow>();
 		services.AddTransient<IAboutProgrammView, AboutProgrammWindow>();
 		services.AddTransient<IHelpView, HelpWindow>();
@@ -50,7 +64,7 @@ public partial class App : Application
 
 
 
-
+		services.AddTransient<CheckLoginViewModel>();
 		services.AddTransient<MessageViewModel>();
 		services.AddTransient<AboutProgrammViewModel>();
 		services.AddTransient<HelpViewModel>();

@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:UniverApp"
         mc:Ignorable="d"
         Title="О программе" Height="450" Width="800"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterScreen"
+        Background="AliceBlue">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20*"></RowDefinition>

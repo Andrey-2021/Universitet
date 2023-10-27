@@ -25,12 +25,12 @@
         <Label Grid.Column="0" Grid.Row="1">Название:</Label>
         <TextBox Grid.Column="1" Grid.Row="1"
                  Text="{Binding Path=MainEntity.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" 
-                 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
+                 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}" TextChanged="TextBox_TextChanged"/>
 
         <Label Grid.Column="0" Grid.Row="2">Описание:</Label>
 
         <TextBox Grid.Column="1" Grid.Row="2" MinHeight="150" MinWidth="320" TextWrapping="Wrap"
-         Text="{Binding Path=MainEntity.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" 
+                 Text="{Binding Path=MainEntity.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" 
                  Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
 
         <Button Grid.Column="1" Grid.Row="3"

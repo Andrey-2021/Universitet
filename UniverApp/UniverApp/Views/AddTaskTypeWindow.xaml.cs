@@ -9,4 +9,9 @@ public partial class AddTaskTypeWindow : Window, IAddTaskTypeView
 		DataContext = viewModel;
 		ViewModel = viewModel;
 	}
+
+	private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+	{
+
+	}
 }

@@ -1,4 +1,5 @@
 ﻿using EntitiesLibrary;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace DbLibrary;
 
@@ -10,6 +11,27 @@ public class DbRepository
 	{
 		this.contextFactory = contextFactory;
 	}
+
+	/// <summary>
+	/// Проверка доступности БД
+	/// </summary>
+	/// <returns></returns>
+	public async Task<Exception?> CanConnectAsync()
+	{
+		try
+		{
+			using var db = contextFactory.CreateDbContext();
+			var isCanConnect = await db.CheckCanConnectAsync();
+			if (isCanConnect == false)
+				throw new Exception("Не удалось подключиться к БД");
+			return null;
+		}
+		catch (Exception ex)
+		{
+			return ex;
+		}
+	}
+
 
 	/// <summary>
 	/// Создать новую БД

@@ -1,5 +1,4 @@
 ﻿using EntitiesLibrary.Enums;
-
 namespace ViewModels;
 
 public class AddUserViewModel : BaseAddEntityViewModel<RegisteredUser>

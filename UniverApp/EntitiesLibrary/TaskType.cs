@@ -10,8 +10,8 @@ public class TaskType : BaseINotifyDataErrorInfo, IHaveId
 	/// <summary>
 	/// Название
 	/// </summary>
-	[Required(ErrorMessage = "Обязательно должна быть введена надпись для видеоролика")]
-	[StringLength(150, MinimumLength = 5, ErrorMessage = "Длина надписи для видеоролика должна быть не менее {2} и не более {1} символов")]
+	[Required(ErrorMessage = "Обязательно должна быть введено название")]
+	[StringLength(150, MinimumLength = 5, ErrorMessage = "Длина названия должна быть не менее {2} и не более {1} символов")]
 	[Comment("Название для типа задания (опросы, практические работы, самостоятельные работы,,,)")]
 	public string? Name 
 	{ 
@@ -44,6 +44,7 @@ public class TaskType : BaseINotifyDataErrorInfo, IHaveId
 	/// <summary>
 	/// Оценки студентов
 	/// </summary>
-	public List<SubjectScore>? SubjectScores { get; set; } //Навигационное свойство на таблицу SubjectScore
+	public List<SubjectScore>? SubjectScores { get => subjectScores; set { subjectScores = value; OnPropertyChanged(); } } //Навигационное свойство на таблицу SubjectScore
+	public List<SubjectScore>? subjectScores;
 
 }

@@ -153,24 +153,14 @@
             </DataGrid.Columns>
         </DataGrid>
 
-
-        
-        
-        
-        
         <Label Grid.Column="0" Grid.Row="5" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">
             Оценка:
         </Label>
 
-        
-        <TextBox Margin="20,10,20,10" 
-                 Grid.Column="1" Grid.Row="5" 
-                 HorizontalAlignment="Stretch"
-                 VerticalAlignment="Center"
-                 MinHeight="30" MinWidth="320">
+        <TextBox Grid.Column="1" Grid.Row="5">
             <TextBox.Text>
                 <Binding Path="MainEntity.Score" UpdateSourceTrigger="PropertyChanged" 
-                         ValidatesOnDataErrors="True" Converter="{StaticResource myDateConverter}" >
+                 ValidatesOnDataErrors="True" Converter="{StaticResource myDateConverter}" >
                     <Binding.ValidationRules>
                         <DataErrorValidationRule/>
                     </Binding.ValidationRules>
@@ -178,12 +168,6 @@
             </TextBox.Text>
         </TextBox>
 
-
-        
-        
-        
-        
-        
         <Button Grid.Column="1" Grid.Row="6"
         Margin="10,10,10,10" Padding="10"
         MinWidth="120"
