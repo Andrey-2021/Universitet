@@ -10,6 +10,7 @@ global using System.Runtime.CompilerServices;
 global using WindowsInterfaces;
 global using DbLibrary;
 global using EntitiesLibrary;
+global using EntitiesLibrary.Services;
 
 global using ViewModels.Base;
 global using HelpAndAboutProgrammLibrary;

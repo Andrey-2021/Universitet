@@ -39,7 +39,7 @@
             <ColumnDefinition Width="70*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto" ></RowDefinition>
             <RowDefinition Height="20*"></RowDefinition>
             <RowDefinition Height="20*"></RowDefinition>
             <RowDefinition Height="20*"></RowDefinition>
@@ -64,10 +64,12 @@
   VerticalScrollBarVisibility="Auto"
   AutoGenerateColumns="False"
   CanUserReorderColumns="False"
-  Margin="5"
+  Margin="5 5 5 30"
   ItemsSource="{Binding Students, Mode=TwoWay}"
             SelectedValuePath="Id"
-            SelectedValue="{Binding Path=MainEntity.StudentId}">
+            SelectedValue="{Binding Path=MainEntity.StudentId, ValidatesOnNotifyDataErrors=True}"
+            Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"
+            >
             <!--SelectedItem="{Binding SelectedEntity, Mode=OneWayToSource}"-->
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Surname}" Header="Фамилия" Width="5*"></DataGridTextColumn>

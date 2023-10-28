@@ -47,7 +47,7 @@ public class RegisteredUser : BaseINotifyDataErrorInfo, IHaveId
 	/// Повторный пароль
 	/// </summary>
 	[NotMapped]
-	//[Compare("Password", ErrorMessage ="Пароли не совпадают ")]
+	[Compare("Password", ErrorMessage ="Пароли не совпадают ")]
 	public string? ConfirmedPassword
 	{
 		get => confirmedPassword;

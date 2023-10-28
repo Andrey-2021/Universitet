@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using EntitiesLibrary.Services;
+using Microsoft.Extensions.DependencyInjection;
 using UniverApp.Views;
 namespace UniverApp;
 
@@ -20,12 +21,14 @@ public partial class App : Application
 
 		var checkPasswordWindow = serviceProvider.GetRequiredService<ICheckLoginView>();
 		checkPasswordWindow.ShowDialog();
-		var vm = checkPasswordWindow.ViewModel as CheckLoginViewModel;
-		if (vm == null || !vm.IsCkeckOn)
-		{
+
+		var loginUserService = serviceProvider.GetService<LiginUserService>();
+		if (loginUserService!.RegisteredUser == null)
+		{ //нет вошедшего пользователя, выходим из программы
 			Current.Shutdown(-1);
 			return;
 		}
+
 
 		var mainWindow = serviceProvider.GetRequiredService<IMainWindowView>();
 		mainWindow.ShowDialog();
@@ -36,6 +39,7 @@ public partial class App : Application
 	{
 		DbConteinerConfiguration.AddToServiceCollection(services);
 		services.AddTransient<DbRepository>();
+		services.AddSingleton<LiginUserService>();
 
 		services.AddTransient<ICheckLoginView, CheckLoginWindow>();
 		services.AddTransient<IMessageWindowView, MessageWindow>();

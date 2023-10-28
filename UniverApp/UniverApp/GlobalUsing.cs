@@ -2,6 +2,7 @@
 global using System.Windows.Input;
 
 global using EntitiesLibrary;
+global using EntitiesLibrary.Services;
 global using DbLibrary;
 global using WindowsInterfaces;
 global using ViewModels;

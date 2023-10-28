@@ -59,10 +59,19 @@ public class MainWindowViewModel
 
 	private IServiceProvider container;
 
+	/// <summary>
+	/// Флаг что это администратор
+	/// </summary>
+	public bool IsAdmin { get; set; }
+	
+
 	public MainWindowViewModel(IServiceProvider serviceProvider)
 	{
 		this.container = serviceProvider;
+		var loginUserService = serviceProvider.GetService<LiginUserService>();
+		IsAdmin = loginUserService!.RegisteredUser!.Role == EntitiesLibrary.Enums.RoleEnum.admin;
 
+		//настройка команд
 		CreateDbCommand = new RelayCommand(CreateNewDb);
 		ShowAllUsersCommand = new RelayCommand(ShowAllUsers);
 
@@ -97,6 +106,10 @@ public class MainWindowViewModel
 		view.ShowDialog();
 	}
 
+	/// <summary>
+	/// Создать новую БД
+	/// </summary>
+	/// <param name="parametr"></param>
 	private async void CreateNewDb(object? parametr)
 	{
 		var repository = container.GetRequiredService<DbRepository>();

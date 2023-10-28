@@ -1,20 +1,16 @@
-﻿using DbLibrary;
-using Microsoft.Extensions.DependencyInjection;
+﻿using EntitiesLibrary.Services;
 namespace ViewModels;
 
 public class CheckLoginViewModel : BaseAddEntityViewModel<CheckLogin>
 {
-	/// <summary>
-	/// Флаг что проверка прошла
-	/// </summary>
-	public bool IsCkeckOn { get; private set; } = false;
-
 	public CheckLoginViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
 	{
 	}
 
 	protected override async void Save(object? parametr)
 	{
+		 var loginUserService = serviceProvider.GetService<LiginUserService>();
+
 		var connectionError= await repository.CanConnectAsync();
 		
 		if(connectionError != null) //ошибка соединения с БД
@@ -25,7 +21,7 @@ public class CheckLoginViewModel : BaseAddEntityViewModel<CheckLogin>
 				errorView.ViewModel.Parametr = "БД недоступна/отсутствует. Вам предоставляется доступ в программу, создайте новую БД и смените пароли по умолчанию.";
 				errorView.ShowDialog();
 
-				IsCkeckOn = true;
+				loginUserService!.CreateAdmin();
 				CloseWindow(parametr);
 				return;
 			}
@@ -33,7 +29,6 @@ public class CheckLoginViewModel : BaseAddEntityViewModel<CheckLogin>
 			var view = serviceProvider.GetRequiredService<IMessageWindowView>();
 			view.ViewModel.Parametr = "БД недоступна. Неправильно ввели пароль или логин!";
 			view.ShowDialog();
-			IsCkeckOn = false;
 			CloseWindow(parametr);
 			return;
 
@@ -45,12 +40,11 @@ public class CheckLoginViewModel : BaseAddEntityViewModel<CheckLogin>
 			var view = serviceProvider.GetRequiredService<IMessageWindowView>();
 			view.ViewModel.Parametr = "Неправильно ввели пароль или логин!";
 			view.ShowDialog();
-			IsCkeckOn = false;
 			CloseWindow(parametr);
 			return;
 		}
 
-		IsCkeckOn = true;
+		loginUserService!.SetUser(find[0]);
 		CloseWindow(parametr);//всё хорошо, закрываем  окно
 	}
 }

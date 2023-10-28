@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using EntitiesLibrary.Base;
+using System.Data;
+using System.Reflection;
 
 namespace ViewModels.Base;
 
@@ -6,8 +8,8 @@ namespace ViewModels.Base;
 /// Базовый класс для всех AddViewModel
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
-public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModelWithParametr
-	where TEntity : class, new()
+public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModelWithParametr, IDisposable
+	where TEntity : class, INotifyPropertyChanged, new()
 {
 	public bool IsBusy { get; set; }
 
@@ -46,6 +48,8 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 	public BaseAddEntityViewModel(IServiceProvider serviceProvider)
 	{
 		MainEntity = new();
+		MainEntity.PropertyChanged += OnMainEntityPropertiesChanged;
+
 		this.serviceProvider = serviceProvider;
 		repository = this.serviceProvider.GetRequiredService<DbRepository>(); //сразу создаём репозиторий для работы с БД
 
@@ -53,6 +57,18 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 		SaveCommand = new RelayCommand(Save, CheckIsPossibleSave);
 		CloseWindowCommand = new RelayCommand(CloseWindow, CheckIsPossibleCloseWindow);
 	}
+
+	public void Dispose()
+	{
+		if(MainEntity!=null)
+			MainEntity.PropertyChanged -= OnMainEntityPropertiesChanged;
+	}
+
+	protected void OnMainEntityPropertiesChanged(object? sender, PropertyChangedEventArgs e)
+	{
+		OnPropertyChanged(nameof(MainEntity));
+	}
+
 
 	/// <summary>
 	/// Приведение типов. Переданный параметр типа object приводим к типу TEntity
@@ -101,8 +117,45 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 	/// <returns></returns>
 	protected virtual bool CheckIsPossibleSave(object? parametr)
 	{
+		//Если объект не существуе, возвращаем false
+		if (MainEntity == null) return false;
+		
+		//проверяем если есть ошибки валидации, тогда возвращаем false
+		BaseINotifyDataErrorInfo? mainEntity = MainEntity as BaseINotifyDataErrorInfo;
+		//mainEntity?.Validate();
+		if (mainEntity!=null && (mainEntity.HasErrors==true /*|| mainEntity.IsNoChecks==true*/)) return false;
+
+
+		if (BaseINotifyDataErrorInfo.HasErrorsOnlyInMyPublicProperties(mainEntity))
+			return false;
+
+
 		return true;
 	}
+
+	/*
+	protected bool HasErrorValidateAllProperties(TEntity? entity)
+	{
+		if(entity==null) return false;
+
+		Type type = entity.GetType();
+
+		//DeclaredOnly: получает только методы непосредственно данного класса, унаследованные методы не извлекаются
+		PropertyInfo[] properties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance).ToArray();
+
+		var properties2 = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.IgnoreCase | BindingFlags.Public).ToList();
+
+		foreach (PropertyInfo property in properties)
+		{
+			
+			//entity.Validate(property.Name);
+			//if (entity.HasErrors) return true;
+
+			//Console.WriteLine("Name: " + property.Name + ", Value: " + property.GetValue(obj, null));
+		}
+		return false;
+	}
+	*/
 
 	/// <summary>
 	/// Закрыть окно. (Метод который вызывается командой CloseWindowCommand)

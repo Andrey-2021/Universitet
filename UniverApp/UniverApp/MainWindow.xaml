@@ -7,17 +7,18 @@
         mc:Ignorable="d"
         Title="Университет" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
-    
     <Window.Resources>
-        <ResourceDictionary Source="pack://application:,,,/DictionaryForElements.xaml"></ResourceDictionary>
+        <local:BooleanToCollapsedVisibilityConverter x:Key="BTVConverter"/>
     </Window.Resources>
-    
+
     <DockPanel LastChildFill="True">
         <Menu x:Name="myMenu" DockPanel.Dock="Top" Background="Beige" Padding="5">
-            <MenuItem Header="Администратор">
+
+            <MenuItem Header="Администратор" IsEnabled="{Binding IsAdmin}" Visibility="{Binding IsAdmin, Converter={StaticResource BTVConverter}}">
                 <MenuItem Header="Создать новую БД" Command="{Binding CreateDbCommand}"></MenuItem>
                 <MenuItem Header="Пользователи" Command="{Binding ShowAllUsersCommand}"></MenuItem>
             </MenuItem>
+            
             <MenuItem Header="О программе" Command="{Binding ShowAboutProgrammCommand}"></MenuItem>
             <MenuItem Header="Помощь" Command="{Binding ShowHelpCommand}"></MenuItem>
 

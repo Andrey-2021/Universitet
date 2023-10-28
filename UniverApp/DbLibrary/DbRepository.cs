@@ -56,7 +56,7 @@ public class DbRepository
 	public async Task InitDb(SqlDbContext db)
 	{
 
-		RegisteredUser admin = new() { Login = "admin", Password = "1234", Role = RoleEnum.admin };
+		RegisteredUser admin = new() { Login = "admin", Password = "admin", Role = RoleEnum.admin };
 		RegisteredUser manager = new() { Login = "user", Password = "1234", Role = RoleEnum.manager };
 		await db.AddRangeAsync(admin, manager);
 
@@ -145,6 +145,30 @@ public class DbRepository
 		await db.AddRangeAsync(st1, st2, st3, st4, st5);
 
 		await db.SaveChangesAsync();
+	}
+
+
+
+	/// <summary>
+	/// Поиск сущност в БД
+	/// </summary>
+	/// <typeparam name="TEntity"></typeparam>
+	/// <param name="predicat">Условие поиска</param>
+	/// <returns>Возвращаем (найденная сущность, Exception)</returns>
+	public async Task<(TEntity? entity, Exception? ex)> FindEntityAsync<TEntity>(System.Linq.Expressions.Expression<Func<TEntity, bool>>? predicat)
+	where TEntity : class
+	{
+		try
+		{
+			using var db = contextFactory.CreateDbContext();
+			var result = await db.Set<TEntity>().FirstOrDefaultAsync(predicat);
+			
+			return (result, null);
+		}
+		catch (Exception ex)
+		{
+			return (null,ex);
+		}
 	}
 
 
