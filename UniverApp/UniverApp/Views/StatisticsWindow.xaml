@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UniverApp.Views"
         mc:Ignorable="d"
-        Title="Статистика" Height="450" Width="800"
+        Title="Статистика" Height="650" Width="800"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -15,6 +15,9 @@
             <ColumnDefinition Width="25*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -50,7 +53,7 @@
         </Label>
         
         <DataGrid MinHeight="120"
-  Grid.Column="1" Grid.Row="5"
+  Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"
   IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
   SelectionMode="Single"
   VerticalScrollBarVisibility="Auto"
@@ -64,8 +67,61 @@
                 <DataGridTextColumn Binding="{Binding Description}" Header="Описание" Width="5*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        
-        
+
+
+        <Label Grid.Column="2" Grid.Row="5" Margin="10" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">
+            Студент:
+        </Label>
+        <DataGrid 
+Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="2"
+IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
+SelectionMode="Single"
+VerticalScrollBarVisibility="Auto"
+AutoGenerateColumns="False"
+CanUserReorderColumns="False"
+Margin="10"
+ItemsSource="{Binding Path=DTO.SelectedGroup.Students, Mode=TwoWay}"
+          SelectedItem="{Binding Path=DTO.SelectedStudent, Mode=TwoWay}"
+          >
+            <!--SelectedItem="{Binding SelectedEntity, Mode=OneWayToSource}"-->
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Surname}" Header="Фамилия" Width="5*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Имя" Width="5*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding MiddleName}" Header="Отчество" Width="5*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Birthday, StringFormat=\{0:dd.MM.yyyy\}}" 
+                          Header="День рождения" Width="5*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Path=UniversitetGroup.Name}" Header="Группа" Width="5*"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+
+        <Label Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+            Оценки
+        </Label>
+
+
+        <DataGrid MinHeight="150"
+  Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="3"
+  IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
+  SelectionMode="Single"
+  VerticalScrollBarVisibility="Auto"
+  AutoGenerateColumns="False"
+  CanUserReorderColumns="False"
+  Margin="10"
+  ItemsSource="{Binding SubjectScores, Mode=TwoWay}"
+  SelectedItem="{Binding SelectedSubjectScore, Mode=OneWayToSource}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=Student.FIO, Mode=OneWay}" Header="Студент" Width="70*"/>
+                <DataGridTextColumn Binding="{Binding Path=Subject.Name, Mode=OneWay}" Header="Предмет" Width="70*"/>
+                <DataGridTextColumn Binding="{Binding Path=LearningDate.Date, StringFormat=\{0:dd.MM.yyyy\}}" Header="Дата" Width="70*"/>
+                <DataGridTextColumn Binding="{Binding Path=TaskType.Name, Mode=OneWay}" Header="Тип контрольной" Width="70*"/>
+                <DataGridTextColumn Binding="{Binding Score, Mode=OneWay}" Header="Оценка" Width="70*"/>
+
+                <!--<DataGridCheckBoxColumn Binding="{Binding IsLearning}" Header="Учились да/нет" Width="30*"/>-->
+            </DataGrid.Columns>
+        </DataGrid>
+
 
 
     </Grid>

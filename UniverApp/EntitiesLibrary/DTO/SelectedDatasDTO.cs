@@ -1,6 +1,9 @@
 ﻿namespace EntitiesLibrary.DTO;
 
-public class SelectedDatasDTO : BaseNotifyPropertyChanged
+/// <summary>
+/// Класс, который будем использовать для хранения исходных данных, которые используются для фильтрации данных статистики
+/// </summary>
+public class SelectedDatasDTO : BaseNotifyPropertyChanged , IDisposable
 {
 	/// <summary>
 	/// Начальная дата периода
@@ -43,19 +46,25 @@ public class SelectedDatasDTO : BaseNotifyPropertyChanged
 	}
 	public Student? selectedStudent;
 
+	/// <summary>
+	/// Метод который будем вызывать когда изменится какое-нибудь значение
+	/// </summary>
 	private Action action;
+
 	public SelectedDatasDTO(Action action)
 	{
 		StartDate = EndDate = DateTime.Now;
 		this.action = action;
-		PropertyChanged += OnChanges();
+		PropertyChanged += OnChanges;
 	}
 	
 	protected void OnChanges(object? sender, PropertyChangedEventArgs e)
 	{
-
+		action.Invoke();
 	}
 
-
-
+	public void Dispose()
+	{
+		PropertyChanged -= OnChanges;
+	}
 }

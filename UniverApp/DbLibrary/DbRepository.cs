@@ -420,4 +420,24 @@ public class DbRepository
 			return null;
 		}
 	}
+
+
+	public async Task<List<UniversitetGroup>?> GetGroupsAsync()
+	{
+		try
+		{
+			using var db = contextFactory.CreateDbContext();
+			var allEntities = db.UniversitetGroups
+				.Include(x=>x.Students)
+				.Include(x=>x.Subjects)
+				.AsSplitQuery();
+
+			var result = await allEntities.ToListAsync();
+			return result;
+		}
+		catch (Exception ex)
+		{
+			return null;
+		}
+	}
 }
