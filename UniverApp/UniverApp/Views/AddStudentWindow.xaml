@@ -65,10 +65,11 @@
           VerticalScrollBarVisibility="Auto"
           AutoGenerateColumns="False"
           CanUserReorderColumns="False"
-          Margin="10"
+          Margin="5 5 5 30"
           ItemsSource="{Binding Entities, Mode=TwoWay}"
                   SelectedValuePath="Id"
-                  SelectedValue="{Binding Path=MainEntity.UniversitetGroupId}">
+                  SelectedValue="{Binding Path=MainEntity.UniversitetGroupId, ValidatesOnNotifyDataErrors=True}"
+            Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="MediumAquamarine"/>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="MediumAquamarine"/>

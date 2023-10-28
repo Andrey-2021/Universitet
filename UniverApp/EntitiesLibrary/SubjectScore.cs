@@ -41,6 +41,7 @@ public class SubjectScore : BaseINotifyDataErrorInfo, IHaveId
 	/// <summary>
 	/// Предмет
 	/// </summary>
+	[Range(1, int.MaxValue, ErrorMessage= "Обязательно должен быть выбран предмет")]
 	[Required(ErrorMessage = "Обязательно должн быть указан предмет")]
 	[Comment("Ссылка на предмет")]
 	public int SubjectId
@@ -71,6 +72,7 @@ public class SubjectScore : BaseINotifyDataErrorInfo, IHaveId
 	/// <summary>
 	/// Дата учёбы
 	/// </summary>
+	[Range(1, int.MaxValue, ErrorMessage = "Обязательно должена быть выбрана дата")]
 	[Required(ErrorMessage = "Обязательно должна быть указана дата")]
 	[Comment("Дата учёбы")]
 	public int LearningDateId
@@ -102,6 +104,7 @@ public class SubjectScore : BaseINotifyDataErrorInfo, IHaveId
 	/// <summary>
 	/// Тип задания/контрольной
 	/// </summary>
+	[Range(1, int.MaxValue, ErrorMessage = "Обязательно должен быть выбран тип задания/контрольной")]
 	[Required(ErrorMessage = "Обязательно должн быть указан тип задания/контрольной")]
 	[Comment("Ссылка на Тип задания/контрольной")]
 	public int TaskTypeId

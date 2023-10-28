@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UniverApp"
         mc:Ignorable="d"
-        Title="Университет" Height="450" Width="800"
+        Title="Университет" Height="550" Width="800"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <local:BooleanToCollapsedVisibilityConverter x:Key="BTVConverter"/>
@@ -25,16 +25,16 @@
         </Menu>
 
         <StatusBar DockPanel.Dock="Bottom" Background="Azure" Padding="5">
-            <StatusBarItem>
+            <!--<StatusBarItem>
                 <TextBlock>Размер поля:</TextBlock>
-            </StatusBarItem>
+            </StatusBarItem>-->
             <!--<StatusBarItem>
             <TextBox Width="100" Text="{Binding GameBordSize, Mode=OneWay}" IsReadOnly="True"
              Style="{DynamicResource TextBoxStyle}"></TextBox>
         </StatusBarItem>-->
         </StatusBar>
 
-        <StackPanel DockPanel.Dock="Left" Background="Bisque" Width="180">
+        <StackPanel DockPanel.Dock="Left" Background="Bisque" Width="200">
             <Button Command="{Binding ShowAllGroupsCommand}">Группы</Button>
             <Button Command="{Binding ShowAllSubjectsCommand}">Предметы</Button>
             <Button Command="{Binding ShowAllTaskTypesCommand}">Типы опросов</Button>
@@ -43,11 +43,13 @@
             <Button Command="{Binding ShowAllLearninsgDatesCommand}">Дата учёбы</Button>
             <Button Command="{Binding ShowAllAttendancesCommand}">Посещаемость</Button>
             <Button Command="{Binding ShowAllSubjectScoreCommand}">Оценки</Button>
+            <Button Command="{Binding ShowStatisticCommand}">Статистика</Button>
             
         </StackPanel>
 
-        <StackPanel DockPanel.Dock="Right" Background="LightBlue" Width="150">
-            <Label>Время:</Label>
+        <StackPanel DockPanel.Dock="Right" Background="LightBlue" Width="200">
+            <Label>Время начала работы:</Label>
+            <Label Content="{Binding StartDateTime, StringFormat=\{0:dd.MM.yyyy HH:mm\}}"></Label>
         </StackPanel>
 
         <UniformGrid x:Name="UniformGridGameBord" Margin="5" Background="LightSteelBlue" ></UniformGrid>

@@ -40,7 +40,7 @@ public class AddSubjectForGroupViewModel : BaseAddEntityViewModel<UniversitetGro
 	/// Загрузка изучаемых предметов
 	/// </summary>
 	/// <returns></returns>
-	protected override async Task OperationsAfterSetParametrAsync()
+	protected override async Task OperationsAfterSetParametrAsync(object? parametr)
 	{
 		IsBusy = true;
 		//читаем все Предметы из БД

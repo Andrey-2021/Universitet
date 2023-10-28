@@ -16,6 +16,8 @@ public class SqlDbContext : DbContext
 		//base.OnModelCreating(modelBuilder);
 		//modelBuilder.Entity<Subject>().Navigation(e => e.UniversitetGroups).AutoInclude();
 		modelBuilder.Entity<UniversitetGroup>().Navigation(e => e.Subjects).AutoInclude();
+		//modelBuilder.Entity<UniversitetGroup>().Navigation(e => e.Students).AutoInclude();
+
 		modelBuilder.Entity<Student>().Navigation(e => e.UniversitetGroup).AutoInclude();
 		modelBuilder.Entity<Attendance>().Navigation(e => e.Student).AutoInclude();
 		modelBuilder.Entity<Attendance>().Navigation(e => e.LearningDate).AutoInclude();

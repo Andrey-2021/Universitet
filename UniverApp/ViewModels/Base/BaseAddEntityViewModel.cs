@@ -1,4 +1,5 @@
 ﻿using EntitiesLibrary.Base;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Reflection;
 
@@ -8,7 +9,7 @@ namespace ViewModels.Base;
 /// Базовый класс для всех AddViewModel
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
-public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModelWithParametr, IDisposable
+public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModelWithParametr //, IDisposable
 	where TEntity : class, INotifyPropertyChanged, new()
 {
 	public bool IsBusy { get; set; }
@@ -48,7 +49,7 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 	public BaseAddEntityViewModel(IServiceProvider serviceProvider)
 	{
 		MainEntity = new();
-		MainEntity.PropertyChanged += OnMainEntityPropertiesChanged;
+		//MainEntity.PropertyChanged += OnMainEntityPropertiesChanged;
 
 		this.serviceProvider = serviceProvider;
 		repository = this.serviceProvider.GetRequiredService<DbRepository>(); //сразу создаём репозиторий для работы с БД
@@ -58,16 +59,16 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 		CloseWindowCommand = new RelayCommand(CloseWindow, CheckIsPossibleCloseWindow);
 	}
 
-	public void Dispose()
-	{
-		if(MainEntity!=null)
-			MainEntity.PropertyChanged -= OnMainEntityPropertiesChanged;
-	}
+	//public void Dispose()
+	//{
+	//	if(MainEntity!=null)
+	//		MainEntity.PropertyChanged -= OnMainEntityPropertiesChanged;
+	//}
 
-	protected void OnMainEntityPropertiesChanged(object? sender, PropertyChangedEventArgs e)
-	{
-		OnPropertyChanged(nameof(MainEntity));
-	}
+	//protected void OnMainEntityPropertiesChanged(object? sender, PropertyChangedEventArgs e)
+	//{
+	//	OnPropertyChanged(nameof(MainEntity));
+	//}
 
 
 	/// <summary>
@@ -80,14 +81,14 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 		var mainEntity = parametr as TEntity;
 		if (mainEntity == null) throw new ArgumentException("Неправильно задан тип параметра");//если не удалость привести, бросаем исключение
 		MainEntity = mainEntity;
-		await OperationsAfterSetParametrAsync();
+		await OperationsAfterSetParametrAsync(parametr);
 	}
 
 	/// <summary>
 	/// Опреации после получения параметра
 	/// </summary>
 	/// <returns></returns>
-	protected virtual async Task OperationsAfterSetParametrAsync()
+	protected virtual async Task OperationsAfterSetParametrAsync(object? parametr)
 	{
 		await Task.CompletedTask;
 	}
@@ -98,12 +99,28 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 	/// <param name="parametr"></param>
 	protected virtual async void Save(object? parametr)
 	{
+		if (BaseINotifyDataErrorInfo.HasErrorsOnlyInAllMyPublicProperties(MainEntity))
+			return;
+
+		//var context = new ValidationContext(MainEntity);
+		//var results = new List<ValidationResult>();
+		//if (!Validator.TryValidateObject(MainEntity, context, results, true))
+		//	return;
+		 
+
+
 		var result = await repository.UpdateEntityAsync(MainEntity);
 		
 		if (result!=null) //если ошибка
 		{
 			var view = serviceProvider.GetRequiredService<IMessageWindowView>();
-			view.ViewModel.Parametr = "Ошибка при выполнении операции сохранения данных. Попробуйте выполнить операцию позже или обратитесь к администратору";
+			var errorString = "Ошибка при выполнении операции сохранения данных. Попробуйте выполнить операцию позже или обратитесь к администратору";
+#if DEBUG
+			errorString = errorString
+				+ Environment.NewLine + "Exception: "+ result.Message +
+				 (result.InnerException == null ? "" : (Environment.NewLine + "InnerException: " + result.InnerException.Message));
+#endif
+			view.ViewModel.Parametr = errorString;
 			view.ShowDialog();
 			return;
 		}
@@ -119,15 +136,20 @@ public class BaseAddEntityViewModel<TEntity>: INotifyPropertyChanged, IViewModel
 	{
 		//Если объект не существуе, возвращаем false
 		if (MainEntity == null) return false;
-		
+
+
 		//проверяем если есть ошибки валидации, тогда возвращаем false
-		BaseINotifyDataErrorInfo? mainEntity = MainEntity as BaseINotifyDataErrorInfo;
+		//BaseINotifyDataErrorInfo? mainEntity = MainEntity as BaseINotifyDataErrorInfo;
+
 		//mainEntity?.Validate();
-		if (mainEntity!=null && (mainEntity.HasErrors==true /*|| mainEntity.IsNoChecks==true*/)) return false;
+		//if (mainEntity!=null && (mainEntity.HasErrors==true /*|| mainEntity.IsNoChecks==true*/)) return false;
 
 
-		if (BaseINotifyDataErrorInfo.HasErrorsOnlyInMyPublicProperties(mainEntity))
-			return false;
+		//if (BaseINotifyDataErrorInfo.HasErrorsOnlyInAllMyPublicProperties(mainEntity))
+		//	return false;
+
+		
+
 
 
 		return true;

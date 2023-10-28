@@ -8,8 +8,10 @@ namespace EntitiesLibrary.Base;
 /// </summary>
 public class BaseINotifyDataErrorInfo: BaseNotifyPropertyChanged, INotifyDataErrorInfo
 {
+	[NotMapped]
 	private IDictionary<string, List<string>> _errors = new Dictionary<string, List<string>>();
 
+	[NotMapped]
 	public bool HasErrors => _errors.Any();
 
 	public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
@@ -47,20 +49,29 @@ public class BaseINotifyDataErrorInfo: BaseNotifyPropertyChanged, INotifyDataErr
 //	}
 
 
-	public static bool HasErrorsOnlyInMyPublicProperties(BaseINotifyDataErrorInfo entity)
+	/// <summary>
+	/// Проверка есть ли ошибки в сущности
+	/// </summary>
+	/// <param name="mainEntity"></param>
+	/// <returns></returns>
+	public static bool HasErrorsOnlyInAllMyPublicProperties(object? mainEntity)
 	{
-		if (entity == null) return false;
-		
+		if (mainEntity == null) return false;
+
+		bool isHAsError = false;
+		BaseINotifyDataErrorInfo? entity = mainEntity as BaseINotifyDataErrorInfo;
+
 		Type type = entity.GetType();
 		PropertyInfo[] properties = type.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
 
 		foreach (PropertyInfo property in properties)
 		{
 			entity.Validate( property.GetValue(entity) , property.Name);
-			if (entity.HasErrors) return true;
+			if (entity.HasErrors)  isHAsError=true;
 			//Console.WriteLine("Name: " + property.Name + ", Value: " + property.GetValue(obj, null));
 		}
-		return false;
+
+		return isHAsError;
 	}
 
 

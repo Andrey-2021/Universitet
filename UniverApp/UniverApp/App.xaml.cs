@@ -41,6 +41,7 @@ public partial class App : Application
 		services.AddTransient<DbRepository>();
 		services.AddSingleton<LiginUserService>();
 
+		services.AddTransient<IStatisticsView, StatisticsWindow>();
 		services.AddTransient<ICheckLoginView, CheckLoginWindow>();
 		services.AddTransient<IMessageWindowView, MessageWindow>();
 		services.AddTransient<IAboutProgrammView, AboutProgrammWindow>();
@@ -67,7 +68,7 @@ public partial class App : Application
 		services.AddTransient<IAddAddSubjectForGroupView, AddSubjectForGroupWindow>();
 
 
-
+		services.AddTransient<StatisticsViewModel>();
 		services.AddTransient<CheckLoginViewModel>();
 		services.AddTransient<MessageViewModel>();
 		services.AddTransient<AboutProgrammViewModel>();

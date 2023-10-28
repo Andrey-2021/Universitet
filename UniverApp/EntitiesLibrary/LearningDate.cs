@@ -1,4 +1,6 @@
-﻿namespace EntitiesLibrary;
+﻿using System.Xml.Linq;
+
+namespace EntitiesLibrary;
 
 /// <summary>
 /// Дата учёбы
@@ -54,4 +56,12 @@ public class LearningDate : BaseINotifyDataErrorInfo,IHaveId
 		}
 	}
 	private List<SubjectScore>? subjectScores;
+
+	/// <summary>
+	/// Конструктор
+	/// </summary>
+	public LearningDate()
+	{
+		Date = DateTime.Now;
+	}
 }

@@ -50,7 +50,7 @@ public class GroupsViewModel : BaseAllEntitiesViewModel<UniversitetGroup, IAddGr
 	}
 
 	/// <summary>
-	/// Проверка можно ли выполнить команду AddSubjectForGroupCommand чтобы показать окно с предетами
+	/// Проверка можно ли выполнить команду AddSubjectForGroupCommand чтобы показать окно с предметами
 	/// </summary>
 	/// <param name="parametr"></param>
 	/// <returns></returns>

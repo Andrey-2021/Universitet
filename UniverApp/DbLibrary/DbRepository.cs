@@ -1,4 +1,5 @@
 ﻿using EntitiesLibrary;
+using EntitiesLibrary.DTO;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace DbLibrary;
@@ -369,6 +370,54 @@ public class DbRepository
 		catch (Exception ex)
 		{
 			return ex;
+		}
+	}
+
+
+	/// <summary>
+	/// Загружаем Студентов обущающихся в выбранной группе
+	/// </summary>
+	/// <param name="groupId"></param>
+	/// <returns></returns>
+	public async Task<List<Student>?> GetStudentsInGroupAsync(int groupId)
+	{
+		try
+		{
+			using var db = contextFactory.CreateDbContext();
+			return  await db.Students .Where(x => x.UniversitetGroupId == groupId)
+										.Include(x => x.Attendances)
+										.ThenInclude(at => at.LearningDate)
+										.ToListAsync();
+		}
+		catch (Exception ex)
+		{
+			return null;
+		}
+	}
+
+	public async Task<List<SubjectScore>?> GetDatesAsync(SelectedDatasDTO dTO)
+	{
+		try
+		{
+			using var db = contextFactory.CreateDbContext();
+
+			var sscore = db.SubjectScores.AsNoTracking();
+
+			if (dTO.StartDate != null && dTO.EndDate != null)
+				sscore = sscore.Where(x => x.LearningDate.Date >= dTO.StartDate && x.LearningDate.Date <= dTO.EndDate);
+
+			//return await db.Students.Where(x => x.UniversitetGroupId == groupId)
+			//							.Include(x => x.Attendances)
+			//							.ThenInclude(at => at.LearningDate)
+			//							.ToListAsync();
+
+			var result = await sscore.ToListAsync();
+			return result;
+
+		}
+		catch (Exception ex)
+		{
+			return null;
 		}
 	}
 }

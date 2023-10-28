@@ -35,14 +35,15 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30*"></ColumnDefinition>
-            <ColumnDefinition Width="70*"></ColumnDefinition>
+            <ColumnDefinition Width="50*"></ColumnDefinition>
+            <ColumnDefinition Width="50*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" ></RowDefinition>
             <RowDefinition Height="20*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="20*"></RowDefinition>
-            <RowDefinition Height="20*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="20*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -53,12 +54,43 @@
             Введите данные об оценке для студента:
         </Label>
 
-        <Label Grid.Column="0" Grid.Row="1" Margin="10" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">
+
+
+
+
+        <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right">
+            Все группы университета:
+        </Label>
+
+        <DataGrid MinHeight="120"
+          Grid.Column="1" Grid.Row="1"
+          IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
+          SelectionMode="Single"
+          VerticalScrollBarVisibility="Auto"
+          AutoGenerateColumns="False"
+          CanUserReorderColumns="False"
+          Margin="10"
+          ItemsSource="{Binding Groups, Mode=TwoWay}"
+          SelectedItem="{Binding SelectedGroup, Mode=OneWayToSource}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Название группы" Width="5*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Description}" Header="Описание" Width="5*"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+        
+
+
+
+
+
+        <Label Grid.Column="0" Grid.Row="2" Margin="10" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">
             Студент:
         </Label>
 
         <DataGrid 
-  Grid.Column="1" Grid.Row="1"
+  Grid.Column="0" Grid.Row="3"
   IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
   SelectionMode="Single"
   VerticalScrollBarVisibility="Auto"
@@ -66,6 +98,8 @@
   CanUserReorderColumns="False"
   Margin="5 5 5 30"
   ItemsSource="{Binding Students, Mode=TwoWay}"
+            SelectedItem="{Binding SelectedStudent, Mode=OneWayToSource}"
+            
             SelectedValuePath="Id"
             SelectedValue="{Binding Path=MainEntity.StudentId, ValidatesOnNotifyDataErrors=True}"
             Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"
@@ -83,21 +117,22 @@
 
 
         
-        <Label Grid.Column="0" Grid.Row="2" Margin="10" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">
+        <Label Grid.Column="1" Grid.Row="2" Margin="10" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">
             Предмет:
         </Label>
 
         <DataGrid
-  Grid.Column="1" Grid.Row="2"
+  Grid.Column="1" Grid.Row="3"
   IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
   SelectionMode="Single"
   VerticalScrollBarVisibility="Auto"
   AutoGenerateColumns="False"
   CanUserReorderColumns="False"
-  Margin="5"
-  ItemsSource="{Binding Subjects, Mode=TwoWay}"
+  Margin="5 5 5 30"
+  ItemsSource="{Binding SelectedGroup.Subjects, Mode=TwoWay}"
             SelectedValuePath="Id"
-            SelectedValue="{Binding Path=MainEntity.SubjectId}">
+            SelectedValue="{Binding Path=MainEntity.SubjectId, ValidatesOnNotifyDataErrors=True}"
+            Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Название изучаемог предмета" Width="5*">
                 </DataGridTextColumn>
@@ -107,20 +142,21 @@
         </DataGrid>
 
 
-        <Label Grid.Column="0" Grid.Row="3" Margin="10" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">
-            Дата учёбы:
+        <Label Grid.Column="0" Grid.Row="4" Margin="10" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">
+            Дата учёбы (выводятся только то, на которых был):
         </Label>
 
-        <DataGrid Grid.Column="1" Grid.Row="3"
+        <DataGrid Grid.Column="0" Grid.Row="5"
           IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
           SelectionMode="Single"
           VerticalScrollBarVisibility="Auto"
           AutoGenerateColumns="False"
           CanUserReorderColumns="False"
-          Margin="10"
+          Margin="5 5 5 30"
           ItemsSource="{Binding LearningDates, Mode=TwoWay}"
                     SelectedValuePath="Id"
-                    SelectedValue="{Binding Path=MainEntity.LearningDateId}">
+                    SelectedValue="{Binding Path=MainEntity.LearningDateId, ValidatesOnNotifyDataErrors=True}"
+            Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Date, StringFormat=\{0:dd.MM.yyyy\}}" 
             Header="Учётный день"
@@ -132,21 +168,22 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Label Grid.Column="0" Grid.Row="4" Margin="10" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">
+        <Label Grid.Column="1" Grid.Row="4" Margin="10" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">
             Тип задания/контрольной:
         </Label>
 
 
-        <DataGrid Grid.Column="1" Grid.Row="4"
+        <DataGrid Grid.Column="1" Grid.Row="5"
   IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
   SelectionMode="Single"
   VerticalScrollBarVisibility="Auto"
   AutoGenerateColumns="False"
   CanUserReorderColumns="False"
-  Margin="10"
+  Margin="5 5 5 30"
   ItemsSource="{Binding TaskTypes, Mode=TwoWay}"
                   SelectedValuePath="Id"
-                  SelectedValue="{Binding Path=MainEntity.TaskTypeId}">
+                  SelectedValue="{Binding Path=MainEntity.TaskTypeId, ValidatesOnNotifyDataErrors=True}"
+            Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Название" Width="5*">
                 </DataGridTextColumn>
@@ -155,11 +192,30 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Label Grid.Column="0" Grid.Row="5" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <Label Grid.Column="0" Grid.Row="6" HorizontalAlignment="Right" VerticalContentAlignment="Top">
             Оценка:
         </Label>
 
-        <TextBox Grid.Column="1" Grid.Row="5">
+        <TextBox Grid.Column="1" Grid.Row="6" MinHeight="30" Width="150" HorizontalAlignment="Left"
+                 Margin="5 10 5 30"
+                 Text="{Binding Path=MainEntity.Score, 
+                        UpdateSourceTrigger=PropertyChanged, 
+                        ValidatesOnNotifyDataErrors=True, 
+                        Converter={StaticResource myDateConverter}}" 
+                 Validation.ErrorTemplate="{StaticResource ValidateTextBoxTemplate}"/>
+        
+        <!--<TextBox Grid.Column="1" Grid.Row="5" Height="25" Width="150" HorizontalAlignment="Left" Margin="10 5 5 5">
             <TextBox.Text>
                 <Binding Path="MainEntity.Score" UpdateSourceTrigger="PropertyChanged" 
                  ValidatesOnDataErrors="True" Converter="{StaticResource myDateConverter}" >
@@ -168,22 +224,22 @@
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>
-        </TextBox>
+        </TextBox>-->
 
-        <Button Grid.Column="1" Grid.Row="6"
+        <Button Grid.Column="0" Grid.Row="7"
         Margin="10,10,10,10" Padding="10"
         MinWidth="120"
-        HorizontalAlignment="Left"
+        HorizontalAlignment="Center"
         VerticalAlignment="Center"
         Command="{Binding SaveCommand}"
         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
             Сохранить
         </Button>
 
-        <Button Grid.Column="1" Grid.Row="6"
-        Margin="0,0,280,0" Padding="10"
+        <Button Grid.Column="1" Grid.Row="7"
+        Margin="10,10,10,10" Padding="10"
         MinWidth="120"
-        HorizontalAlignment="Right"
+        HorizontalAlignment="Center"
         VerticalAlignment="Center"
         Command="{Binding CloseWindowCommand}"
         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">

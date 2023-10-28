@@ -47,4 +47,7 @@ public class UniversitetGroup : BaseINotifyDataErrorInfo, IHaveId
 	/// </summary>
 	public List<Subject>? Subjects { get => subjects; set { subjects = value; OnPropertyChanged(); } }
 	public List<Subject>? subjects;
+
+	public List<Student>? Students{ get => students; set { students = value; OnPropertyChanged(); } }
+	public List<Student>? students;
 }

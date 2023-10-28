@@ -2,6 +2,12 @@
 
 public class MainWindowViewModel
 {
+
+	/// <summary>
+	/// Команда "показать статистику"
+	/// </summary>
+	public ICommand? ShowStatisticCommand { get; private set; }
+
 	/// <summary>
 	/// Команда "показать оценки"
 	/// </summary>
@@ -63,7 +69,9 @@ public class MainWindowViewModel
 	/// Флаг что это администратор
 	/// </summary>
 	public bool IsAdmin { get; set; }
-	
+
+	public DateTime StartDateTime { get; set; }=DateTime.Now;
+
 
 	public MainWindowViewModel(IServiceProvider serviceProvider)
 	{
@@ -86,6 +94,14 @@ public class MainWindowViewModel
 		ShowAllLearninsgDatesCommand = new RelayCommand(ShowAllLearninsgDates);
 		ShowAllAttendancesCommand = new RelayCommand(ShowAllAttendances);
 		ShowAllSubjectScoreCommand = new RelayCommand(ShowAllSubjectScore);
+		ShowStatisticCommand = new RelayCommand(ShowStatistic);
+		
+	}
+
+	private void ShowStatistic(object? parametr)
+	{
+		var view = container.GetRequiredService<IStatisticsView>();
+		view.ShowDialog();
 	}
 
 	private void ShowAllSubjectScore(object? parametr)
