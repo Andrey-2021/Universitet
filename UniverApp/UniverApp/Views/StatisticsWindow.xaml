@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UniverApp.Views"
         mc:Ignorable="d"
-        Title="Статистика" Height="750" Width="800"
+        Title="Статистика" Height="850" Width="1100"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -30,23 +30,23 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Grid.Column="0" Grid.Row="0" Margin="10" Grid.ColumnSpan="4">
+        <Label Grid.Column="0" Grid.Row="0" Margin="0" Padding="0" Grid.ColumnSpan="4">
             Вывод статистики
         </Label>
 
         <Label Grid.Column="0" Grid.Row="1" Margin="0" Padding="0">
             Введите пириод:
         </Label>
-        <Label Grid.Column="0" Grid.Row="2" Margin="10">
+        <Label Grid.Column="0" Grid.Row="2" Margin="0" Padding="0">
             Начальная дата:
         </Label>
         <DatePicker Grid.Row="2" Grid.Column="1" 
                     SelectedDate="{Binding Path=DTO.StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        
-        <Label Grid.Column="0" Grid.Row="3" Margin="10">
+
+        <Label Grid.Column="2" Grid.Row="2" Margin="0" Padding="0">
             Конечная Дата:
         </Label>
-        <DatePicker Grid.Row="3" Grid.Column="1" 
+        <DatePicker Grid.Row="2" Grid.Column="3" 
             SelectedDate="{Binding Path=DTO.EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
@@ -78,7 +78,7 @@
   CanUserReorderColumns="False"
   Margin="10"
   ItemsSource="{Binding Groups, Mode=TwoWay}"
-  SelectedItem="{Binding Path=DTO.SelectedGroup, Mode=OneWayToSource}">
+  SelectedItem="{Binding Path=DTO.SelectedGroup, Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Название группы" Width="5*"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Description}" Header="Описание" Width="5*"></DataGridTextColumn>
@@ -94,7 +94,7 @@
                 Студент:
             </Label>
             <Button Margin="20 0 0 0" Padding="0" 
-            Command="{Binding ClearSelectedTaskTypeCommand}">Сбросить</Button>
+            Command="{Binding ClearSelectedStudentCommand}">Сбросить</Button>
         </StackPanel>
 
         
@@ -196,7 +196,7 @@ ItemsSource="{Binding TaskTypes, Mode=TwoWay}"
 
 
         <Label Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="3" HorizontalAlignment="Center"
-               Margin="5" Padding="0">
+               Margin="5" Padding="0" Foreground="Red">
             Оценки
         </Label>
 
@@ -208,8 +208,8 @@ ItemsSource="{Binding TaskTypes, Mode=TwoWay}"
   VerticalScrollBarVisibility="Auto"
   AutoGenerateColumns="False"
   CanUserReorderColumns="False"
-  Margin="10"
-  ItemsSource="{Binding SubjectScores, Mode=TwoWay}"
+  Margin="5"
+  ItemsSource="{Binding Path=Statistic.SubjectScores, Mode=TwoWay}"
   SelectedItem="{Binding SelectedSubjectScore, Mode=OneWayToSource}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=Student.FIO, Mode=OneWay}" Header="Студент" Width="70*"/>
@@ -223,6 +223,58 @@ ItemsSource="{Binding TaskTypes, Mode=TwoWay}"
         </DataGrid>
 
 
+        <StackPanel Grid.Column="3" Grid.Row="10" >
+            <StackPanel Orientation="Horizontal">
+            <Label Foreground="Red">Средний бал:</Label>
+                <Label HorizontalContentAlignment="Left"  Content="{Binding Statistic.AverageScore}"></Label>
+            </StackPanel>
+            
+        </StackPanel>
+        
+        
+        
+        
+        
 
+        <Label Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="3" HorizontalAlignment="Center"
+               Margin="5" Padding="0" Foreground="Red">
+            Средние оценки
+        </Label>
+
+
+        <DataGrid MinHeight="100"
+Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="3"
+IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
+SelectionMode="Single"
+VerticalScrollBarVisibility="Auto"
+AutoGenerateColumns="False"
+CanUserReorderColumns="False"
+Margin="5"
+ItemsSource="{Binding Path=Statistic.StudentAverageScores, Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=Student.FIO, Mode=OneWay}" Header="Студент" Width="70*"/>
+                <DataGridTextColumn Binding="{Binding AverageScore, Mode=OneWay}" Header="Средний бал" Width="70*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+        <StackPanel Grid.Column="3" Grid.Row="12" >
+            <StackPanel Orientation="Horizontal">
+                <Label Margin="0" Foreground="Red">Средний бал средних оценок:</Label>
+                <Label Margin="0" HorizontalContentAlignment="Left"  Content="{Binding Path=Statistic.AverageScoreForStudentAverageScores}"></Label>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal"> 
+            <Label Margin="0" Foreground="Red">Максимальный бал:</Label>
+                <Label Margin="0" HorizontalContentAlignment="Left" Content="{Binding Path=Statistic.MaxAverageScoreForAverageScores}"></Label>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Margin="0" Foreground="Red">Минимальный бал:</Label>
+                <Label Margin="0" HorizontalContentAlignment="Left" Content="{Binding Path=Statistic.MinAverageScoreForAverageScores }"></Label>
+            </StackPanel>
+
+        </StackPanel>
+        
     </Grid>
 </Window>

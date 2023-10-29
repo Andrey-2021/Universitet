@@ -143,7 +143,7 @@
 
 
         <Label Grid.Column="0" Grid.Row="4" Margin="10" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">
-            Дата учёбы (выводятся только то, на которых был):
+            Дата учёбы (выводятся только те, на которых был):
         </Label>
 
         <DataGrid Grid.Column="0" Grid.Row="5"

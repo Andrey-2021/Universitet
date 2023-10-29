@@ -1,11 +1,10 @@
-﻿using DbLibrary;
-using EntitiesLibrary;
+﻿using EntitiesLibrary.Auxiliaries;
 using EntitiesLibrary.DTO;
-using System.ComponentModel;
-using System.Xml.Linq;
-
 namespace ViewModels;
 
+/// <summary>
+/// ViewModel для окна статистики
+/// </summary>
 public class StatisticsViewModel:BaseNotifyPropertyChanged
 {
 	/// <summary>
@@ -16,6 +15,9 @@ public class StatisticsViewModel:BaseNotifyPropertyChanged
 
 	public SelectedDatasDTO? DTO { get=> dTO; set { dTO = value; OnPropertyChanged(); } }
 	public SelectedDatasDTO? dTO;
+
+	public StudentStatistic? Statistic { get => statistic; set { statistic = value; OnPropertyChanged(); } }
+	public StudentStatistic? statistic;
 
 	/// <summary>
 	/// Список групп
@@ -29,11 +31,11 @@ public class StatisticsViewModel:BaseNotifyPropertyChanged
 	public ObservableCollection<TaskType>? TaskTypes { get => taskTypes; set { taskTypes = value; OnPropertyChanged(); } }
 	public ObservableCollection<TaskType>? taskTypes;
 
-	/// <summary>
-	/// Список оценок
-	/// </summary>
-	public ObservableCollection<SubjectScore>? SubjectScores { get => subjectScores; set { subjectScores = value; OnPropertyChanged(); } }
-	public ObservableCollection<SubjectScore>? subjectScores;
+	///// <summary>
+	///// Список оценок
+	///// </summary>
+	//public ObservableCollection<SubjectScore>? SubjectScores { get => subjectScores; set { subjectScores = value; OnPropertyChanged(); } }
+	//public ObservableCollection<SubjectScore>? subjectScores;
 
 	public SubjectScore? SelectedSubjectScore { get => selectedSubjectScore; set { selectedSubjectScore = value; OnPropertyChanged(); } }
 	public SubjectScore? selectedSubjectScore;
@@ -67,6 +69,7 @@ public class StatisticsViewModel:BaseNotifyPropertyChanged
 	/// <param name="serviceProvider"></param>
 	public StatisticsViewModel(IServiceProvider serviceProvider)
 	{
+		Statistic = new();
 		ClearSelectedGroupCommand = new RelayCommand(ClearSelectedGroup);
 		ClearSelectedStudentCommand = new RelayCommand(ClearSelectedStudent);
 		ClearSelectedTaskTypeCommand = new RelayCommand(ClearSelectedTaskType);
@@ -124,9 +127,11 @@ public class StatisticsViewModel:BaseNotifyPropertyChanged
 	private async void OnSelectChangedLoadDates()
 	{
 		var studentsResponse = await repository.GetDatesAsync(DTO);
-		
-		if (studentsResponse == null) SubjectScores = null;
-		else SubjectScores = new(studentsResponse);
+
+		Statistic?.SetDatas(studentsResponse, DTO);
+
+		//if (studentsResponse == null) SubjectScores = null;
+		//else SubjectScores = new(studentsResponse);
 
 	}
 }

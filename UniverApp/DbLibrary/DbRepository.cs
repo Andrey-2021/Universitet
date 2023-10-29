@@ -73,6 +73,20 @@ public class DbRepository
 		TaskType type3 = new() { Name = "Самостоятельная работа" };
 		await db.AddRangeAsync(type1, type2, type3);
 
+
+
+
+		LearningDate day1 = new() { Date = new DateTime(2023, 10, 1) };
+		LearningDate day2 = new() { Date = new DateTime(2023, 10, 2), IsLearning=true };
+		LearningDate day3 = new() { Date = new DateTime(2023, 10, 3), IsLearning = true };
+		LearningDate day4 = new() { Date = new DateTime(2023, 10, 4), IsLearning = true };
+		LearningDate day5 = new() { Date = new DateTime(2023, 10, 5), IsLearning = true };
+		LearningDate day6 = new() { Date = new DateTime(2023, 10, 6), IsLearning = true };
+		LearningDate day7 = new() { Date = new DateTime(2023, 10, 7) };
+		LearningDate day8 = new() { Date = new DateTime(2023, 10, 8) };
+		await db.AddRangeAsync(day1, day2,day3,day4,day5, day6, day7, day8);
+
+
 		UniversitetGroup group1 = new()
 		{
 			Name = "Группа ПМ-002",
@@ -101,6 +115,8 @@ public class DbRepository
 
 		
 		
+
+
 		
 		
 		Student st1 = new()
@@ -472,6 +488,9 @@ public class DbRepository
 
 			if (dTO.SelectedTaskType != null)
 				sscore = sscore.Where(x => x.TaskTypeId == dTO.SelectedTaskType.Id);
+
+			if (dTO.SelectedSubject!= null)
+				sscore = sscore.Where(x => x.SubjectId == dTO.SelectedSubject.Id);
 
 
 

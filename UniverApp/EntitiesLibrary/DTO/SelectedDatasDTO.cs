@@ -80,20 +80,25 @@ public class SelectedDatasDTO : BaseNotifyPropertyChanged , IDisposable
 	/// </summary>
 	private Action action;
 
+	/// <summary>
+	/// Конструктор
+	/// </summary>
+	/// <param name="action"></param>
 	public SelectedDatasDTO(Action action)
 	{
-		StartDate = EndDate = DateTime.Now;
+		StartDate = new DateTime(DateTime.Now.Year, 1, 1);
+		EndDate = DateTime.Now;
 		this.action = action;
-		PropertyChanged += OnChanges;
+		PropertyChanged += OnPropertyChanged;
 	}
 	
-	protected void OnChanges(object? sender, PropertyChangedEventArgs e)
+	protected void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
 	{
 		action.Invoke();
 	}
 
 	public void Dispose()
 	{
-		PropertyChanged -= OnChanges;
+		PropertyChanged -= OnPropertyChanged;
 	}
 }

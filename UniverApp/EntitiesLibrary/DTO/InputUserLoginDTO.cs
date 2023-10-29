@@ -3,7 +3,7 @@
 /// <summary>
 /// Зарегистрированный пользователь
 /// </summary>
-public class InputUserDTO : IHaveId
+public class InputUserLoginDTO : IHaveId
 {
 	public int Id { get; set; }
 
