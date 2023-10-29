@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UniverApp.Views"
         mc:Ignorable="d"
-        Title="Статистика" Height="650" Width="800"
+        Title="Статистика" Height="750" Width="800"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -25,6 +25,8 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto" MinHeight="15"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
         </Grid.RowDefinitions>
@@ -32,7 +34,7 @@
             Вывод статистики
         </Label>
 
-        <Label Grid.Column="0" Grid.Row="1" Margin="10">
+        <Label Grid.Column="0" Grid.Row="1" Margin="0" Padding="0">
             Введите пириод:
         </Label>
         <Label Grid.Column="0" Grid.Row="2" Margin="10">
@@ -48,9 +50,24 @@
             SelectedDate="{Binding Path=DTO.EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
-        <Label Grid.Column="0" Grid.Row="5" HorizontalAlignment="Right">
-            Все группы университета:
-        </Label>
+
+
+
+
+
+
+        
+
+
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"
+                    HorizontalAlignment="Center">
+            <Label  Margin="0" Padding="0">
+                Все группы университета:
+            </Label>
+            <Button Margin="20 0 0 0" Padding="0" 
+                    Command="{Binding ClearSelectedGroupCommand}">Сбросить</Button>
+        </StackPanel>
+        
         
         <DataGrid MinHeight="120"
   Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"
@@ -69,9 +86,18 @@
         </DataGrid>
 
 
-        <Label Grid.Column="2" Grid.Row="5" Margin="10" HorizontalContentAlignment="Right" VerticalContentAlignment="Center">
-            Студент:
-        </Label>
+
+
+        <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="2"
+            HorizontalAlignment="Center">
+            <Label  Margin="0" Padding="0">
+                Студент:
+            </Label>
+            <Button Margin="20 0 0 0" Padding="0" 
+            Command="{Binding ClearSelectedTaskTypeCommand}">Сбросить</Button>
+        </StackPanel>
+
+        
         <DataGrid 
 Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="2"
 IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
@@ -96,13 +122,87 @@ ItemsSource="{Binding Path=DTO.SelectedGroup.Students, Mode=TwoWay}"
 
 
 
-        <Label Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+
+
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2"
+            HorizontalAlignment="Center">
+            <Label  Margin="0" Padding="0">
+                Предмет:
+            </Label>
+            <Button Margin="20 0 0 0" Padding="0" 
+            Command="{Binding ClearSelectedSubjectCommand}">Сбросить</Button>
+        </StackPanel>
+
+        <DataGrid
+Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2"
+IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
+SelectionMode="Single"
+VerticalScrollBarVisibility="Auto"
+AutoGenerateColumns="False"
+CanUserReorderColumns="False"
+Margin="5"
+ItemsSource="{Binding Path=DTO.SelectedGroup.Subjects, Mode=TwoWay}"
+            SelectedItem="{Binding Path=DTO.SelectedSubject, Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Название изучаемог предмета" Width="5*">
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Description}" Header="Описание" Width="5*">
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+
+
+
+
+        <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="2"
+                    HorizontalAlignment="Center">
+            <Label  Margin="0" Padding="0">
+                Тип задания/контрольной:
+            </Label>
+            <Button Margin="20 0 0 0" Padding="0" 
+                    Command="{Binding ClearSelectedTaskTypeCommand}">Сбросить</Button>
+        </StackPanel>
+
+        <DataGrid Grid.Column="2" Grid.Row="8" Grid.ColumnSpan="2"
+                  MinHeight="150"
+IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
+SelectionMode="Single"
+VerticalScrollBarVisibility="Auto"
+AutoGenerateColumns="False"
+CanUserReorderColumns="False"
+Margin="5"
+ItemsSource="{Binding TaskTypes, Mode=TwoWay}"
+                  SelectedItem="{Binding Path=DTO.SelectedTaskType, Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Название" Width="5*">
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Description}" Header="Описание" Width="5*">
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <Label Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="3" HorizontalAlignment="Center"
+               Margin="5" Padding="0">
             Оценки
         </Label>
 
 
         <DataGrid MinHeight="150"
-  Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="3"
+  Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="3"
   IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
   SelectionMode="Single"
   VerticalScrollBarVisibility="Auto"

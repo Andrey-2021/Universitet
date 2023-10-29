@@ -1,6 +1,8 @@
 ﻿using EntitiesLibrary.Services;
 using Microsoft.Extensions.DependencyInjection;
 using UniverApp.Views;
+using ViewModels.ConfigServices;
+
 namespace UniverApp;
 
 public partial class App : Application
@@ -67,7 +69,9 @@ public partial class App : Application
 
 		services.AddTransient<IAddAddSubjectForGroupView, AddSubjectForGroupWindow>();
 
+		AddCommonViewModels.AddViewModels(services);
 
+		/*
 		services.AddTransient<StatisticsViewModel>();
 		services.AddTransient<CheckLoginViewModel>();
 		services.AddTransient<MessageViewModel>();
@@ -93,6 +97,6 @@ public partial class App : Application
 		services.AddTransient<AddSubjectScoreViewModel>();
 
 		services.AddTransient<AddSubjectForGroupViewModel>();
-
+		*/
 	}
 }

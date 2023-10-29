@@ -99,12 +99,16 @@ public class DbRepository
 		};
 		await db.AddRangeAsync(group1, group2, group3, group4);
 
+		
+		
+		
+		
 		Student st1 = new()
 		{
 			Surname = "Петров",
 			Name = "Сергей",
 			MiddleName = "Васильевич",
-			Birthday = new DateTime(2015, 7, 20),
+			Birthday = new DateTime(2010, 1, 4),
 			UniversitetGroup = group1
 		};
 
@@ -113,7 +117,7 @@ public class DbRepository
 			Surname = "Иванов",
 			Name = "Пётр",
 			MiddleName = "Иванович",
-			Birthday = new DateTime(2015, 7, 20),
+			Birthday = new DateTime(2011, 4, 4),
 			UniversitetGroup = group2
 		};
 
@@ -122,7 +126,7 @@ public class DbRepository
 			Surname = "Смирнов",
 			Name = "Валерий",
 			MiddleName = "Васильевич",
-			Birthday = new DateTime(2015, 7, 20),
+			Birthday = new DateTime(2012, 7, 2),
 			UniversitetGroup = group1
 		};
 
@@ -131,7 +135,7 @@ public class DbRepository
 			Surname = "Конев",
 			Name = "Генадий",
 			MiddleName = "Аркадьевич",
-			Birthday = new DateTime(2015, 7, 20),
+			Birthday = new DateTime(2013, 3, 9),
 			UniversitetGroup = group2
 		};
 
@@ -143,7 +147,54 @@ public class DbRepository
 			Birthday = new DateTime(2015, 7, 20),
 			UniversitetGroup = group3
 		};
-		await db.AddRangeAsync(st1, st2, st3, st4, st5);
+
+
+		Student st6 = new()
+		{
+			Surname = "Круглов",
+			Name = "Сергей",
+			MiddleName = "Сергеевич",
+			Birthday = new DateTime(2014, 6, 2),
+			UniversitetGroup = group4
+		};
+
+		Student st7 = new()
+		{
+			Surname = "Барабанов",
+			Name = "Пётр",
+			MiddleName = "Петрович",
+			Birthday = new DateTime(2016, 12, 3),
+			UniversitetGroup = group4
+		};
+
+		Student st8 = new()
+		{
+			Surname = "Камелотов",
+			Name = "Михаил",
+			MiddleName = "Васильевич",
+			Birthday = new DateTime(2014, 3, 4),
+			UniversitetGroup = group4
+		};
+
+		Student st9 = new()
+		{
+			Surname = "Бубликов",
+			Name = "Стас",
+			MiddleName = "Петрович",
+			Birthday = new DateTime(2018, 1, 2),
+			UniversitetGroup = group4
+		};
+
+		Student st10 = new()
+		{
+			Surname = "Крмаров",
+			Name = "Иван",
+			MiddleName = "Иванович",
+			Birthday = new DateTime(2012, 11, 23),
+			UniversitetGroup = group4
+		};
+
+		await db.AddRangeAsync(st1, st2, st3, st4, st5, st6, st7,st8,st9,st10);
 
 		await db.SaveChangesAsync();
 	}
@@ -401,10 +452,28 @@ public class DbRepository
 		{
 			using var db = contextFactory.CreateDbContext();
 
-			var sscore = db.SubjectScores.AsNoTracking();
+			var sscore = db.SubjectScores
+				.Include(x=>x.Student)
+				.Include(x => x.Subject)
+				.Include(x => x.LearningDate)
+				.Include(x => x.TaskType)
+				.AsSplitQuery();
 
 			if (dTO.StartDate != null && dTO.EndDate != null)
 				sscore = sscore.Where(x => x.LearningDate.Date >= dTO.StartDate && x.LearningDate.Date <= dTO.EndDate);
+
+			if (dTO.SelectedGroup != null && dTO.SelectedStudent == null)
+			{ // оценки всех студентов из группы
+				sscore = sscore.Where(x => x.Student.UniversitetGroupId == dTO.SelectedGroup.Id);
+			}
+
+			if (dTO.SelectedStudent != null)
+				sscore = sscore.Where(x => x.StudentId== dTO.SelectedStudent.Id);
+
+			if (dTO.SelectedTaskType != null)
+				sscore = sscore.Where(x => x.TaskTypeId == dTO.SelectedTaskType.Id);
+
+
 
 			//return await db.Students.Where(x => x.UniversitetGroupId == groupId)
 			//							.Include(x => x.Attendances)

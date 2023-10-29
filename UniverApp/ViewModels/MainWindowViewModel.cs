@@ -77,7 +77,10 @@ public class MainWindowViewModel
 	{
 		this.container = serviceProvider;
 		var loginUserService = serviceProvider.GetService<LiginUserService>();
-		IsAdmin = loginUserService!.RegisteredUser!.Role == EntitiesLibrary.Enums.RoleEnum.admin;
+		
+		//todo исправить
+		if(loginUserService !=null && loginUserService.RegisteredUser!=null)
+			IsAdmin = loginUserService!.RegisteredUser?.Role == EntitiesLibrary.Enums.RoleEnum.admin;
 
 		//настройка команд
 		CreateDbCommand = new RelayCommand(CreateNewDb);

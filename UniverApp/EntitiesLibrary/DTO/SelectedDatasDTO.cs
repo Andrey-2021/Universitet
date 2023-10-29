@@ -46,6 +46,35 @@ public class SelectedDatasDTO : BaseNotifyPropertyChanged , IDisposable
 	}
 	public Student? selectedStudent;
 
+
+
+
+	/// <summary>
+	/// Выбранный предмет
+	/// </summary>
+	public Subject? SelectedSubject
+	{
+		get => selectedSubject;
+		set
+		{
+			selectedSubject = value;
+			OnPropertyChanged();
+		}
+	}
+	public Subject? selectedSubject;
+
+
+
+
+	/// <summary>
+	/// Выбранный тип задания
+	/// </summary>
+	public TaskType? SelectedTaskType { get => selectedTaskType; set { selectedTaskType = value; OnPropertyChanged(); } }
+	public TaskType? selectedTaskType;
+
+
+
+
 	/// <summary>
 	/// Метод который будем вызывать когда изменится какое-нибудь значение
 	/// </summary>

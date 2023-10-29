@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntitiesLibrary", "Entities
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindowsInterfaces", "WindowsInterfaces\WindowsInterfaces.csproj", "{0D8FCB18-5B8D-4155-849C-67A6C2FC42E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelpAndAboutProgrammLibrary", "HelpAndAboutProgrammLibrary\HelpAndAboutProgrammLibrary.csproj", "{08B1E036-7C62-4259-BB7E-B5426C111D1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelpAndAboutProgrammLibrary", "HelpAndAboutProgrammLibrary\HelpAndAboutProgrammLibrary.csproj", "{08B1E036-7C62-4259-BB7E-B5426C111D1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiUniverApp", "MauiUniverApp\MauiUniverApp.csproj", "{70D0DC2F-A5CF-4A12-8800-16FD458C107A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,12 @@ Global
 		{08B1E036-7C62-4259-BB7E-B5426C111D1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08B1E036-7C62-4259-BB7E-B5426C111D1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08B1E036-7C62-4259-BB7E-B5426C111D1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70D0DC2F-A5CF-4A12-8800-16FD458C107A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70D0DC2F-A5CF-4A12-8800-16FD458C107A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70D0DC2F-A5CF-4A12-8800-16FD458C107A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{70D0DC2F-A5CF-4A12-8800-16FD458C107A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70D0DC2F-A5CF-4A12-8800-16FD458C107A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70D0DC2F-A5CF-4A12-8800-16FD458C107A}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
