@@ -36,7 +36,12 @@ public class HelpRepositiry
 	{
 		try
 		{
-			using (FileStream fs = new FileStream(aboutProgrammFileName, FileMode.OpenOrCreate))
+			//var path = Directory.GetCurrentDirectory();
+			//string directory = Environment.CurrentDirectory;
+			string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+			var result = Path.Combine(appDirectory, aboutProgrammFileName);
+
+			using (FileStream fs = new FileStream(result, FileMode.OpenOrCreate))
 			{
 				var about = await JsonSerializer.DeserializeAsync<AboutProgramm>(fs);
 				return about;

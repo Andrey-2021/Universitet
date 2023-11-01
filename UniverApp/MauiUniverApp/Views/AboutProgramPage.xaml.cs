@@ -10,17 +10,18 @@ public partial class AboutProgramPage : ContentPage, IAboutProgrammView
 
 	public void Close()
 	{
-		
 	}
 
 	public bool? ShowDialog()
 	{
-		
-		 Navigation.PushModalAsync(this);
-		
-
+		App.Current.MainPage = new NavigationPage(this);
 		return true;
 	}
 
+	//public async Task ShowMAUIPage()
+	//{
+	//	//await Navigation.PushAsync(this, true);
+	//	App.Current.MainPage = new NavigationPage(this);
+	//}
 
 }

@@ -1,5 +1,9 @@
 ﻿namespace MauiUniverApp;
 
+//Статья
+//https://putridparrot.com/blog/dependency-injection-using-shell-in-maui/
+//https://stackoverflow.com/questions/69332982/how-to-share-serviceprovider-in-maui-blazor-for-maui-services-and-blazor-service
+
 public class MyServiceProvider
 {
 	public static TService GetService<TService>()

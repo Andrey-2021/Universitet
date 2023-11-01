@@ -2,18 +2,32 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiUniverApp.Views.AboutProgramPage"
-             Title="AboutProgramPage">
+             Title="о программе">
     <VerticalStackLayout>
+
+        <Image
+            Source="dotnet_bot.png"
+            SemanticProperties.Description="Cute dot net bot waving hi to you!"
+            HeightRequest="100"
+            HorizontalOptions="Center" />
+
         <Label 
-            Text="Welcome to .NET MAUI!"
+            Text="{Binding Path=AboutProgramm.Title, Mode=OneWay}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
-        <Image
-    Source="dotnet_bot.png"
-    SemanticProperties.Description="Cute dot net bot waving hi to you!"
-    HeightRequest="200"
+        <Label 
+    Text="{Binding Path=AboutProgramm.Text, Mode=OneWay}"
+    VerticalOptions="Center" 
     HorizontalOptions="Center" />
+
+        <Label 
+    Text="{Binding Path=AboutProgramm.Footer, Mode=OneWay}"
+            TextColor="Red"
+    VerticalOptions="Center" 
+    HorizontalOptions="Center" />
+
+
 
     </VerticalStackLayout>
 </ContentPage>

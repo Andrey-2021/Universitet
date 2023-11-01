@@ -2,6 +2,6 @@
     "UseDb": "MsSQL",
     "ConnectionStrings": {
         "MsSQL": "Data Source = WIN10PC; Initial Catalog = Universitet; Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
-        "MySQL": "server=localhost;user=root;password=1234;database=KK_Shop;"
+        "MySQL": "server=localhost;user=root;password=1234;database=Universitet;"
     }
 }

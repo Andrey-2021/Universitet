@@ -2,5 +2,7 @@
 
 public interface IMainWindowView : IView
 {
-	public void Show();
+	public void Show()
+	{
+	}
 }

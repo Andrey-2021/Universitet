@@ -189,9 +189,10 @@ public class MainWindowViewModel
 		view.ShowDialog();
 	}
 
-	private void ShowAboutProgramm(object? parametr)
+	private async void ShowAboutProgramm(object? parametr)
 	{
 		var view = container.GetRequiredService<IAboutProgrammView>();
 		view.ShowDialog();
+		//await view.ShowMAUIPage();
 	}
 }

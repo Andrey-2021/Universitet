@@ -9,12 +9,15 @@ public interface IView
 	/// Показать окно
 	/// </summary>
 	/// <returns></returns>
-	public bool? ShowDialog();
+	public bool? ShowDialog()
+	{ 
+		return false; 
+	}
 	
 	/// <summary>
 	/// Закрыть окно
 	/// </summary>
-	public void Close();
-
-	
+	public void Close()
+	{
+	}
 }

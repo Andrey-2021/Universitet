@@ -8,6 +8,7 @@
 
 			//MainPage = new AppShell();
 			MainPage = new NavigationPage(new MainPage());
+			//Routing.RegisterRoute(nameof(AboutProgramPage), typeof(AboutProgramPage));
 		}
 	}
 }
